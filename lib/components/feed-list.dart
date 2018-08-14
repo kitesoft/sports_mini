@@ -27,7 +27,7 @@ class _FeedList extends State<FeedList> {
 
   @override
   void didUpdateWidget(oldWidget) {
-    _getFeedList();
+    // _getFeedList();
     super.didUpdateWidget(oldWidget);
   }
 
@@ -41,8 +41,10 @@ class _FeedList extends State<FeedList> {
       'requestId': requestId,
       'pvId': pvId
     });
-    debugPrint(res.data.toString());
+    // debugPrint(res.data.toString());
   }
+
+  Map feedM = {'showType': 1};
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +53,9 @@ class _FeedList extends State<FeedList> {
       padding: EdgeInsets.symmetric(horizontal: 15.0),
       child: Column(
         children: <Widget>[
-          FeedItem({'showType': 1}),
-
+          FeedItem({'showType': '1'}),
+          FeedItem({'showType': '2'}),
+          FeedItem({'showType': '5'}),
           // FeedItem(feed: {
           //   'type': 2
           // }),
