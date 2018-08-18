@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../components/live-schedule.dart';
 import '../components/feed-list.dart';
+import '../components/side-bar.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -18,6 +19,9 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: Text(widget.title),
         ),
+        endDrawer: new Drawer(
+          child: new SideBar(),
+        ),
         body: Column(
           children: <Widget>[
             // 顶部 header
@@ -26,7 +30,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 15.0),
                 child: Row(
                   children: <Widget>[
-                    Icon(Icons.arrow_back_ios, color: Colors.grey),
                     Expanded(
                         child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

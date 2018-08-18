@@ -115,11 +115,22 @@ class _FeedItem extends State<FeedItem> {
             Container(
               // height: 100.0,
               color: Colors.red,
-              constraints: new BoxConstraints(minWidth: 345.0),
-              child: FadeInImage.assetNetwork(
-                image: 'https://5b0988e595225.cdn.sohucs.com/q_70,c_lfill,w_750,h_420,g_faces/images/20180814/b19c8ebc7b2b4219a990f728f6ca91ef.jpeg',
-                placeholder: '/images/preload.png',
-              ),
+              constraints: new BoxConstraints(maxWidth: 345.0),
+              // child: FadeInImage.assetNetwork(
+              //   image: 'https://5b0988e595225.cdn.sohucs.com/q_70,c_lfill,w_750,h_420,g_faces/images/20180814/b19c8ebc7b2b4219a990f728f6ca91ef.jpeg',
+              //   placeholder: '/images/preload.png',
+              // ),
+              child: new Stack(
+                children: [
+                  FadeInImage.assetNetwork(
+                    image: 'https://5b0988e595225.cdn.sohucs.com/q_70,c_lfill,w_750,h_420,g_faces/images/20180814/b19c8ebc7b2b4219a990f728f6ca91ef.jpeg',
+                    placeholder: '/images/preload.png',
+                  ),
+                  Center(
+                    child: Text('Hello,world.'),
+                  ),
+                ]
+              )
             ),
             Row(
               children: <Widget>[
