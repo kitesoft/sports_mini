@@ -21,12 +21,18 @@ class _FeedItem extends State<FeedItem> {
   void didUpdateWidget(oldWidget) {
     super.didUpdateWidget(oldWidget);
   }
+  
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     var resComp;
     int showType = int.parse(widget.feed['showType']);
+    final avaWidth = MediaQuery.of(context).size.width;
+    Map bigImgSize = {
+      'width': avaWidth - 15.0 * 2,
+      'height': (avaWidth - 15.0 * 2) * 3 / 4
+    };
 
     if (showType == 1) {
       // 纯文本
@@ -42,7 +48,7 @@ class _FeedItem extends State<FeedItem> {
                     '五大联赛新赛季，你pick的球队还是那家赞助商吗？（附国内观赛指南）五大联赛新赛季，你pick的球队还是那家赞助商吗？（附国内观赛指南）',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
-                    style: TextStyle(fontSize: 18.0))),
+                    style: TextStyle(fontSize: 18.0, height: 1.3))),
             Row(
               children: <Widget>[
                 Text(
@@ -74,7 +80,7 @@ class _FeedItem extends State<FeedItem> {
                             '葡足协密切关注穆帅动向 一旦下课立即聘请狂人葡足协密切关注穆帅动向 一旦下课立即聘请狂人',
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
-                            style: TextStyle(fontSize: 17.0),
+                            style: TextStyle(fontSize: 17.0, height: 1.3),
                           )),
                       Row(
                         children: [
@@ -110,27 +116,16 @@ class _FeedItem extends State<FeedItem> {
                     '五大联赛新赛季，你pick的球队还是那家赞助商吗？（附国内观赛指南）五大联赛新赛季，你pick的球队还是那家赞助商吗？（附国内观赛指南）',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
-                    style: TextStyle(fontSize: 18.0))
+                    style: TextStyle(fontSize: 18.0, height: 1.3))
             ),
             Container(
-              // height: 100.0,
-              color: Colors.red,
-              constraints: new BoxConstraints(maxWidth: 345.0),
-              // child: FadeInImage.assetNetwork(
-              //   image: 'https://5b0988e595225.cdn.sohucs.com/q_70,c_lfill,w_750,h_420,g_faces/images/20180814/b19c8ebc7b2b4219a990f728f6ca91ef.jpeg',
-              //   placeholder: '/images/preload.png',
-              // ),
-              child: new Stack(
-                children: [
-                  FadeInImage.assetNetwork(
-                    image: 'https://5b0988e595225.cdn.sohucs.com/q_70,c_lfill,w_750,h_420,g_faces/images/20180814/b19c8ebc7b2b4219a990f728f6ca91ef.jpeg',
-                    placeholder: '/images/preload.png',
-                  ),
-                  Center(
-                    child: Text('Hello,world.'),
-                  ),
-                ]
-              )
+              width: bigImgSize['width'],
+              margin: EdgeInsets.only(bottom: 8.0),
+              height: 196.0,
+              decoration: new BoxDecoration(
+                image: new DecorationImage(image: new NetworkImage('https://5b0988e595225.cdn.sohucs.com/q_70,c_lfill,w_750,h_420,g_faces/images/20180814/b19c8ebc7b2b4219a990f728f6ca91ef.jpeg'))
+              ),
+              child: Icon(Icons.play_circle_outline, color: Colors.white, size: 60.0,),
             ),
             Row(
               children: <Widget>[
