@@ -352,15 +352,16 @@ class _StandingTeamsState extends State<StandingTeams> {
   Container _buildTitleSection() {
     return Container(
             color: Colors.grey,
+            padding: EdgeInsets.symmetric(horizontal: 15.0),
             height: 36.0,
             child: Row(
               children: [
                 Expanded(
-                  flex: 3,
+                  flex: 4,
                   child: Text('球队'),
                 ),
                 Expanded(
-                  flex: 7,
+                  flex: 6,
                   child: Row(children: [
                     Expanded(
                       flex: 18,
@@ -387,20 +388,37 @@ class _StandingTeamsState extends State<StandingTeams> {
   Container _getItemWidget(item) {
     return Container(
         height: 50.0,
+        padding: EdgeInsets.symmetric(horizontal: 15.0),
         color: item['bg'],
         child: Row(
           children: [
             Expanded(
-                flex: 3,
+                flex: 4,
                 child: Row(
                   children: <Widget>[
-                    Text(item['rank']),
-                    Icon(Icons.av_timer),
-                    Text(item['teamInfo']['teamName'], softWrap: true)
+                    Container(
+                      width: 18.0,
+                      child: Text(item['rank'], textAlign: TextAlign.center),
+                    ),
+                    Container(
+                      width: 13.0,
+                      height: 13.0,
+                      margin: EdgeInsets.symmetric(horizontal: 5.0),
+                      child: FadeInImage.assetNetwork(
+                        placeholder: '/images/preload.png',
+                        image: item['teamInfo']['flag'],
+                      ),
+                    ),
+                    Container(
+                      width: 6 * 12.0,
+                      padding: EdgeInsets.only(left: 2.0),
+                      child: Text(item['teamInfo']['teamName'], softWrap:true, overflow: TextOverflow.ellipsis,)
+                    )
+                    
                   ],
                 )),
             Expanded(
-              flex: 7,
+              flex: 6,
               child: Row(children: [
                 Expanded(
                   flex: 18,
