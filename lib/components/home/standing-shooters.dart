@@ -110,6 +110,7 @@ class _StandingShootersState extends State<StandingShooters> {
     var item;
     int trueRank = 1;
     int currentNum = 0;
+    if (playerList == null) return [];
     for (var i = 0; i < playerList.length; i++) {
       item = playerList[i];
       // 处理排名
@@ -135,7 +136,7 @@ class _StandingShootersState extends State<StandingShooters> {
 
       formatList.add(item);
     }
-    return formatList.toList();
+    return formatList;
   }
 
   @override

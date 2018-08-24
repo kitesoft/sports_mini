@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 
 class StandingAssists extends StatefulWidget {
   @override
@@ -6,1191 +7,57 @@ class StandingAssists extends StatefulWidget {
 }
 
 class _StandingAssistsState extends State<StandingAssists> {
-  List playerList = [
-    {
-        "playerId":16779,
-        "playerInfo":{
-            "playerId":16779,
-            "playerName":"霍莱巴斯",
-            "otherName":"霍莱巴斯, 何塞",
-            "number":0,
-            "positionStr":"defender",
-            "position":4,
-            "teamInfo":{
-                "teamId":24,
-                "teamName":"沃特福德",
-                "flag":"http://statics.itc.cn/football/teamicon/24.png",
-                "group":null
-            },
-            "photo":null,
-            "age":34,
-            "birthDate":"1984-06-27"
-        },
-        "games":2,
-        "minutes":0,
-        "goals":0,
-        "assists":2,
-        "pGoals":0,
-        "passes":68,
-        "shortPasses":11,
-        "mediumPasses":54,
-        "longPasses":3,
-        "tackles":8,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":139225,
-        "playerInfo":{
-            "playerId":139225,
-            "playerName":"门迪",
-            "otherName":"门迪, 本杰明",
-            "number":0,
-            "positionStr":null,
-            "position":0,
-            "teamInfo":{
-                "teamId":17,
-                "teamName":"曼城",
-                "flag":"http://statics.itc.cn/football/teamicon/17.png",
-                "group":null
-            },
-            "photo":null,
-            "age":0,
-            "birthDate":null
-        },
-        "games":2,
-        "minutes":0,
-        "goals":0,
-        "assists":2,
-        "pGoals":0,
-        "passes":124,
-        "shortPasses":13,
-        "mediumPasses":110,
-        "longPasses":1,
-        "tackles":6,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":27583,
-        "playerInfo":{
-            "playerId":27583,
-            "playerName":"阿扎尔",
-            "otherName":"哈扎德, 伊登",
-            "number":0,
-            "positionStr":"forward",
-            "position":2,
-            "teamInfo":{
-                "teamId":38,
-                "teamName":"切尔西",
-                "flag":"http://statics.itc.cn/football/teamicon/38.png",
-                "group":null
-            },
-            "photo":null,
-            "age":27,
-            "birthDate":"1991-01-07"
-        },
-        "games":2,
-        "minutes":0,
-        "goals":0,
-        "assists":2,
-        "pGoals":0,
-        "passes":50,
-        "shortPasses":11,
-        "mediumPasses":38,
-        "longPasses":1,
-        "tackles":5,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":72127,
-        "playerInfo":{
-            "playerId":72127,
-            "playerName":"托松",
-            "otherName":"托桑, 森克",
-            "number":0,
-            "positionStr":"forward",
-            "position":2,
-            "teamInfo":{
-                "teamId":48,
-                "teamName":"埃弗顿",
-                "flag":"http://statics.itc.cn/football/teamicon/48.png",
-                "group":null
-            },
-            "photo":null,
-            "age":27,
-            "birthDate":"1991-06-07"
-        },
-        "games":2,
-        "minutes":0,
-        "goals":0,
-        "assists":1,
-        "pGoals":0,
-        "passes":31,
-        "shortPasses":7,
-        "mediumPasses":24,
-        "longPasses":0,
-        "tackles":7,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":74577,
-        "playerInfo":{
-            "playerId":74577,
-            "playerName":"范安霍尔特",
-            "otherName":"范-安霍尔特, 帕特里克",
-            "number":0,
-            "positionStr":"defender",
-            "position":4,
-            "teamInfo":{
-                "teamId":7,
-                "teamName":"水晶宫",
-                "flag":"http://statics.itc.cn/football/teamicon/7.png",
-                "group":null
-            },
-            "photo":null,
-            "age":27,
-            "birthDate":"1990-08-29"
-        },
-        "games":2,
-        "minutes":0,
-        "goals":0,
-        "assists":1,
-        "pGoals":0,
-        "passes":87,
-        "shortPasses":7,
-        "mediumPasses":78,
-        "longPasses":2,
-        "tackles":8,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":49805,
-        "playerInfo":{
-            "playerId":49805,
-            "playerName":"古德蒙森",
-            "otherName":"古德蒙德森, 约翰",
-            "number":0,
-            "positionStr":"midfielder",
-            "position":3,
-            "teamInfo":{
-                "teamId":6,
-                "teamName":"伯恩利",
-                "flag":"http://statics.itc.cn/football/teamicon/6.png",
-                "group":null
-            },
-            "photo":null,
-            "age":27,
-            "birthDate":"1990-10-27"
-        },
-        "games":2,
-        "minutes":0,
-        "goals":0,
-        "assists":1,
-        "pGoals":0,
-        "passes":38,
-        "shortPasses":5,
-        "mediumPasses":33,
-        "longPasses":0,
-        "tackles":7,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":27009,
-        "playerInfo":{
-            "playerId":27009,
-            "playerName":"施奈德林",
-            "otherName":"施内德林, 摩根",
-            "number":0,
-            "positionStr":null,
-            "position":0,
-            "teamInfo":{
-                "teamId":48,
-                "teamName":"埃弗顿",
-                "flag":"http://statics.itc.cn/football/teamicon/48.png",
-                "group":null
-            },
-            "photo":null,
-            "age":0,
-            "birthDate":null
-        },
-        "games":2,
-        "minutes":0,
-        "goals":0,
-        "assists":1,
-        "pGoals":0,
-        "passes":57,
-        "shortPasses":9,
-        "mediumPasses":48,
-        "longPasses":0,
-        "tackles":6,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":113956,
-        "playerInfo":{
-            "playerId":113956,
-            "playerName":null,
-            "otherName":"威尔逊",
-            "number":0,
-            "positionStr":"forward",
-            "position":2,
-            "teamInfo":{
-                "teamId":60,
-                "teamName":"伯恩茅斯",
-                "flag":"http://statics.itc.cn/football/teamicon/60.png",
-                "group":null
-            },
-            "photo":null,
-            "age":26,
-            "birthDate":"1992-02-27"
-        },
-        "games":2,
-        "minutes":0,
-        "goals":2,
-        "assists":1,
-        "pGoals":0,
-        "passes":31,
-        "shortPasses":9,
-        "mediumPasses":22,
-        "longPasses":0,
-        "tackles":10,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":978193,
-        "playerInfo":{
-            "playerId":978193,
-            "playerName":null,
-            "otherName":"瑞恩·塞塞尼翁",
-            "number":0,
-            "positionStr":"midfielder",
-            "position":3,
-            "teamInfo":{
-                "teamId":43,
-                "teamName":"富勒姆",
-                "flag":"http://statics.itc.cn/football/teamicon/43.png",
-                "group":null
-            },
-            "photo":null,
-            "age":18,
-            "birthDate":"2000-05-18"
-        },
-        "games":2,
-        "minutes":0,
-        "goals":0,
-        "assists":1,
-        "pGoals":0,
-        "passes":36,
-        "shortPasses":3,
-        "mediumPasses":33,
-        "longPasses":0,
-        "tackles":6,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":791,
-        "playerInfo":{
-            "playerId":791,
-            "playerName":"米尔纳",
-            "otherName":"米尔纳, 詹姆斯",
-            "number":0,
-            "positionStr":null,
-            "position":0,
-            "teamInfo":{
-                "teamId":44,
-                "teamName":"利物浦",
-                "flag":"http://statics.itc.cn/football/teamicon/44.png",
-                "group":null
-            },
-            "photo":null,
-            "age":0,
-            "birthDate":null
-        },
-        "games":2,
-        "minutes":0,
-        "goals":1,
-        "assists":1,
-        "pGoals":0,
-        "passes":143,
-        "shortPasses":18,
-        "mediumPasses":122,
-        "longPasses":3,
-        "tackles":12,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":22109,
-        "playerInfo":{
-            "playerId":22109,
-            "playerName":"迪尼",
-            "otherName":"迪尼, 特洛伊",
-            "number":0,
-            "positionStr":"forward",
-            "position":2,
-            "teamInfo":{
-                "teamId":24,
-                "teamName":"沃特福德",
-                "flag":"http://statics.itc.cn/football/teamicon/24.png",
-                "group":null
-            },
-            "photo":null,
-            "age":30,
-            "birthDate":"1988-06-29"
-        },
-        "games":2,
-        "minutes":0,
-        "goals":1,
-        "assists":1,
-        "pGoals":0,
-        "passes":32,
-        "shortPasses":5,
-        "mediumPasses":26,
-        "longPasses":1,
-        "tackles":3,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":122702,
-        "playerInfo":{
-            "playerId":122702,
-            "playerName":"拉梅拉",
-            "otherName":"拉梅拉, 埃里克",
-            "number":0,
-            "positionStr":"forward",
-            "position":2,
-            "teamInfo":{
-                "teamId":33,
-                "teamName":"热刺",
-                "flag":"http://statics.itc.cn/football/teamicon/33.png",
-                "group":null
-            },
-            "photo":null,
-            "age":26,
-            "birthDate":"1992-03-04"
-        },
-        "games":1,
-        "minutes":0,
-        "goals":0,
-        "assists":1,
-        "pGoals":0,
-        "passes":10,
-        "shortPasses":2,
-        "mediumPasses":8,
-        "longPasses":0,
-        "tackles":1,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":280955,
-        "playerInfo":{
-            "playerId":280955,
-            "playerName":"鲁本-内维斯",
-            "otherName":"鲁本·内维斯",
-            "number":0,
-            "positionStr":"midfielder",
-            "position":3,
-            "teamInfo":{
-                "teamId":3,
-                "teamName":"狼队",
-                "flag":"http://statics.itc.cn/football/teamicon/3.png",
-                "group":null
-            },
-            "photo":null,
-            "age":21,
-            "birthDate":"1997-03-13"
-        },
-        "games":2,
-        "minutes":0,
-        "goals":1,
-        "assists":1,
-        "pGoals":0,
-        "passes":133,
-        "shortPasses":1,
-        "mediumPasses":129,
-        "longPasses":3,
-        "tackles":6,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":566102,
-        "playerInfo":{
-            "playerId":566102,
-            "playerName":"戴维森-桑切斯",
-            "otherName":"戴维森,桑切斯,米纳",
-            "number":0,
-            "positionStr":"defender",
-            "position":4,
-            "teamInfo":{
-                "teamId":33,
-                "teamName":"热刺",
-                "flag":"http://statics.itc.cn/football/teamicon/33.png",
-                "group":null
-            },
-            "photo":null,
-            "age":22,
-            "birthDate":"1996-06-12"
-        },
-        "games":2,
-        "minutes":0,
-        "goals":0,
-        "assists":1,
-        "pGoals":0,
-        "passes":106,
-        "shortPasses":6,
-        "mediumPasses":100,
-        "longPasses":0,
-        "tackles":7,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":105697,
-        "playerInfo":{
-            "playerId":105697,
-            "playerName":"奥里耶",
-            "otherName":"奥里尔, 赛尔格",
-            "number":0,
-            "positionStr":"defender",
-            "position":4,
-            "teamInfo":{
-                "teamId":33,
-                "teamName":"热刺",
-                "flag":"http://statics.itc.cn/football/teamicon/33.png",
-                "group":null
-            },
-            "photo":null,
-            "age":25,
-            "birthDate":"1992-12-24"
-        },
-        "games":1,
-        "minutes":0,
-        "goals":0,
-        "assists":1,
-        "pGoals":0,
-        "passes":38,
-        "shortPasses":8,
-        "mediumPasses":30,
-        "longPasses":0,
-        "tackles":1,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":69408,
-        "playerInfo":{
-            "playerId":69408,
-            "playerName":"M-阿隆索",
-            "otherName":"阿隆索, 马科斯",
-            "number":0,
-            "positionStr":"defender",
-            "position":4,
-            "teamInfo":{
-                "teamId":38,
-                "teamName":"切尔西",
-                "flag":"http://statics.itc.cn/football/teamicon/38.png",
-                "group":null
-            },
-            "photo":null,
-            "age":27,
-            "birthDate":"1990-12-28"
-        },
-        "games":2,
-        "minutes":0,
-        "goals":1,
-        "assists":1,
-        "pGoals":0,
-        "passes":152,
-        "shortPasses":13,
-        "mediumPasses":138,
-        "longPasses":1,
-        "tackles":10,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":1086144,
-        "playerInfo":{
-            "playerId":1086144,
-            "playerName":null,
-            "otherName":"阿隆·万比萨卡",
-            "number":0,
-            "positionStr":"midfielder",
-            "position":3,
-            "teamInfo":{
-                "teamId":7,
-                "teamName":"水晶宫",
-                "flag":"http://statics.itc.cn/football/teamicon/7.png",
-                "group":null
-            },
-            "photo":null,
-            "age":20,
-            "birthDate":"1997-11-26"
-        },
-        "games":2,
-        "minutes":0,
-        "goals":0,
-        "assists":1,
-        "pGoals":0,
-        "passes":54,
-        "shortPasses":16,
-        "mediumPasses":36,
-        "longPasses":2,
-        "tackles":16,
-        "fouls":0,
-        "clears":2,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":254491,
-        "playerInfo":{
-            "playerId":254491,
-            "playerName":"埃德森",
-            "otherName":"埃德森，桑塔纳",
-            "number":0,
-            "positionStr":"goalkeeper",
-            "position":1,
-            "teamInfo":{
-                "teamId":17,
-                "teamName":"曼城",
-                "flag":"http://statics.itc.cn/football/teamicon/17.png",
-                "group":null
-            },
-            "photo":null,
-            "age":25,
-            "birthDate":"1993-08-17"
-        },
-        "games":2,
-        "minutes":0,
-        "goals":0,
-        "assists":1,
-        "pGoals":0,
-        "passes":54,
-        "shortPasses":2,
-        "mediumPasses":49,
-        "longPasses":3,
-        "tackles":0,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":143697,
-        "playerInfo":{
-            "playerId":143697,
-            "playerName":"菲尔米诺",
-            "otherName":"菲尔米诺, 罗伯托",
-            "number":0,
-            "positionStr":"forward",
-            "position":2,
-            "teamInfo":{
-                "teamId":44,
-                "teamName":"利物浦",
-                "flag":"http://statics.itc.cn/football/teamicon/44.png",
-                "group":null
-            },
-            "photo":null,
-            "age":26,
-            "birthDate":"1991-10-02"
-        },
-        "games":2,
-        "minutes":0,
-        "goals":0,
-        "assists":1,
-        "pGoals":0,
-        "passes":67,
-        "shortPasses":13,
-        "mediumPasses":54,
-        "longPasses":0,
-        "tackles":11,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":307284,
-        "playerInfo":{
-            "playerId":307284,
-            "playerName":"勒米纳",
-            "otherName":"马里奥,里米纳",
-            "number":0,
-            "positionStr":null,
-            "position":0,
-            "teamInfo":{
-                "teamId":45,
-                "teamName":"南安普顿",
-                "flag":"http://statics.itc.cn/football/teamicon/45.png",
-                "group":null
-            },
-            "photo":null,
-            "age":0,
-            "birthDate":null
-        },
-        "games":2,
-        "minutes":0,
-        "goals":0,
-        "assists":1,
-        "pGoals":0,
-        "passes":63,
-        "shortPasses":14,
-        "mediumPasses":48,
-        "longPasses":1,
-        "tackles":8,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":28367,
-        "playerInfo":{
-            "playerId":28367,
-            "playerName":"马塔",
-            "otherName":"胡安·马塔",
-            "number":0,
-            "positionStr":"midfielder",
-            "position":3,
-            "teamInfo":{
-                "teamId":35,
-                "teamName":"曼联",
-                "flag":"http://statics.itc.cn/football/teamicon/35.png",
-                "group":null
-            },
-            "photo":null,
-            "age":30,
-            "birthDate":"1988-04-28"
-        },
-        "games":2,
-        "minutes":0,
-        "goals":0,
-        "assists":1,
-        "pGoals":0,
-        "passes":57,
-        "shortPasses":14,
-        "mediumPasses":42,
-        "longPasses":1,
-        "tackles":2,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":21555,
-        "playerInfo":{
-            "playerId":21555,
-            "playerName":"阿兹皮利奎塔",
-            "otherName":"阿兹皮利库埃塔, 塞萨尔",
-            "number":0,
-            "positionStr":"defender",
-            "position":4,
-            "teamInfo":{
-                "teamId":38,
-                "teamName":"切尔西",
-                "flag":"http://statics.itc.cn/football/teamicon/38.png",
-                "group":null
-            },
-            "photo":null,
-            "age":28,
-            "birthDate":"1989-08-28"
-        },
-        "games":2,
-        "minutes":0,
-        "goals":0,
-        "assists":1,
-        "pGoals":0,
-        "passes":141,
-        "shortPasses":7,
-        "mediumPasses":133,
-        "longPasses":1,
-        "tackles":4,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":96535,
-        "playerInfo":{
-            "playerId":96535,
-            "playerName":"杜库雷",
-            "otherName":"阿卜杜拉耶,杜库雷",
-            "number":0,
-            "positionStr":null,
-            "position":0,
-            "teamInfo":{
-                "teamId":24,
-                "teamName":"沃特福德",
-                "flag":"http://statics.itc.cn/football/teamicon/24.png",
-                "group":null
-            },
-            "photo":null,
-            "age":0,
-            "birthDate":null
-        },
-        "games":2,
-        "minutes":0,
-        "goals":0,
-        "assists":1,
-        "pGoals":0,
-        "passes":72,
-        "shortPasses":8,
-        "mediumPasses":64,
-        "longPasses":0,
-        "tackles":6,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":262911,
-        "playerInfo":{
-            "playerId":262911,
-            "playerName":"罗伯逊",
-            "otherName":"安德鲁,罗伯逊",
-            "number":0,
-            "positionStr":"defender",
-            "position":4,
-            "teamInfo":{
-                "teamId":44,
-                "teamName":"利物浦",
-                "flag":"http://statics.itc.cn/football/teamicon/44.png",
-                "group":null
-            },
-            "photo":null,
-            "age":24,
-            "birthDate":"1994-03-11"
-        },
-        "games":2,
-        "minutes":0,
-        "goals":0,
-        "assists":1,
-        "pGoals":0,
-        "passes":157,
-        "shortPasses":16,
-        "mediumPasses":141,
-        "longPasses":0,
-        "tackles":9,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":221200,
-        "playerInfo":{
-            "playerId":221200,
-            "playerName":null,
-            "otherName":"里卡多",
-            "number":0,
-            "positionStr":"defender",
-            "position":4,
-            "teamInfo":{
-                "teamId":31,
-                "teamName":"莱斯特城",
-                "flag":"http://statics.itc.cn/football/teamicon/31.png",
-                "group":null
-            },
-            "photo":null,
-            "age":24,
-            "birthDate":"1993-10-06"
-        },
-        "games":2,
-        "minutes":0,
-        "goals":0,
-        "assists":1,
-        "pGoals":0,
-        "passes":71,
-        "shortPasses":9,
-        "mediumPasses":59,
-        "longPasses":3,
-        "tackles":12,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":138261,
-        "playerInfo":{
-            "playerId":138261,
-            "playerName":"弗雷泽",
-            "otherName":"弗拉塞尔, 瑞恩",
-            "number":0,
-            "positionStr":"midfielder",
-            "position":3,
-            "teamInfo":{
-                "teamId":60,
-                "teamName":"伯恩茅斯",
-                "flag":"http://statics.itc.cn/football/teamicon/60.png",
-                "group":null
-            },
-            "photo":null,
-            "age":24,
-            "birthDate":"1994-02-24"
-        },
-        "games":2,
-        "minutes":0,
-        "goals":1,
-        "assists":1,
-        "pGoals":0,
-        "passes":54,
-        "shortPasses":8,
-        "mediumPasses":45,
-        "longPasses":1,
-        "tackles":5,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":31417,
-        "playerInfo":{
-            "playerId":31417,
-            "playerName":"威廉",
-            "otherName":"威廉",
-            "number":0,
-            "positionStr":"midfielder",
-            "position":3,
-            "teamInfo":{
-                "teamId":38,
-                "teamName":"切尔西",
-                "flag":"http://statics.itc.cn/football/teamicon/38.png",
-                "group":null
-            },
-            "photo":null,
-            "age":30,
-            "birthDate":"1988-08-09"
-        },
-        "games":2,
-        "minutes":0,
-        "goals":0,
-        "assists":1,
-        "pGoals":0,
-        "passes":54,
-        "shortPasses":3,
-        "mediumPasses":51,
-        "longPasses":0,
-        "tackles":8,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":10501,
-        "playerInfo":{
-            "playerId":10501,
-            "playerName":"沃尔科特",
-            "otherName":"沃尔科特, 西奥",
-            "number":0,
-            "positionStr":"forward",
-            "position":2,
-            "teamInfo":{
-                "teamId":48,
-                "teamName":"埃弗顿",
-                "flag":"http://statics.itc.cn/football/teamicon/48.png",
-                "group":null
-            },
-            "photo":null,
-            "age":29,
-            "birthDate":"1989-03-16"
-        },
-        "games":2,
-        "minutes":0,
-        "goals":1,
-        "assists":1,
-        "pGoals":0,
-        "passes":29,
-        "shortPasses":9,
-        "mediumPasses":20,
-        "longPasses":0,
-        "tackles":9,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":116664,
-        "playerInfo":{
-            "playerId":116664,
-            "playerName":"科诺凯特",
-            "otherName":"克诺卡尔特, 安东尼",
-            "number":0,
-            "positionStr":null,
-            "position":0,
-            "teamInfo":{
-                "teamId":30,
-                "teamName":"布莱顿",
-                "flag":"http://statics.itc.cn/football/teamicon/30.png",
-                "group":null
-            },
-            "photo":null,
-            "age":0,
-            "birthDate":null
-        },
-        "games":2,
-        "minutes":0,
-        "goals":0,
-        "assists":1,
-        "pGoals":0,
-        "passes":33,
-        "shortPasses":1,
-        "mediumPasses":30,
-        "longPasses":2,
-        "tackles":14,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":42699,
-        "playerInfo":{
-            "playerId":42699,
-            "playerName":"马特-里奇",
-            "otherName":"马特-罗切",
-            "number":0,
-            "positionStr":"midfielder",
-            "position":3,
-            "teamInfo":{
-                "teamId":39,
-                "teamName":"纽卡斯尔",
-                "flag":"http://statics.itc.cn/football/teamicon/39.png",
-                "group":null
-            },
-            "photo":null,
-            "age":28,
-            "birthDate":"1989-09-10"
-        },
-        "games":2,
-        "minutes":0,
-        "goals":0,
-        "assists":1,
-        "pGoals":0,
-        "passes":30,
-        "shortPasses":2,
-        "mediumPasses":27,
-        "longPasses":1,
-        "tackles":6,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":37151,
-        "playerInfo":{
-            "playerId":37151,
-            "playerName":"姆希塔良",
-            "otherName":"Mkhitaryan, Henrikh",
-            "number":0,
-            "positionStr":"midfielder",
-            "position":3,
-            "teamInfo":{
-                "teamId":42,
-                "teamName":"阿森纳",
-                "flag":"http://statics.itc.cn/football/teamicon/42.png",
-                "group":null
-            },
-            "photo":null,
-            "age":29,
-            "birthDate":"1989-01-21"
-        },
-        "games":2,
-        "minutes":0,
-        "goals":1,
-        "assists":1,
-        "pGoals":0,
-        "passes":44,
-        "shortPasses":3,
-        "mediumPasses":41,
-        "longPasses":0,
-        "tackles":8,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":15152,
-        "playerInfo":{
-            "playerId":15152,
-            "playerName":"弗朗西斯",
-            "otherName":"弗朗西斯, 西蒙",
-            "number":0,
-            "positionStr":"defender",
-            "position":4,
-            "teamInfo":{
-                "teamId":60,
-                "teamName":"伯恩茅斯",
-                "flag":"http://statics.itc.cn/football/teamicon/60.png",
-                "group":null
-            },
-            "photo":null,
-            "age":33,
-            "birthDate":"1985-02-16"
-        },
-        "games":2,
-        "minutes":0,
-        "goals":0,
-        "assists":1,
-        "pGoals":0,
-        "passes":14,
-        "shortPasses":2,
-        "mediumPasses":12,
-        "longPasses":0,
-        "tackles":3,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":301288,
-        "playerInfo":{
-            "playerId":301288,
-            "playerName":"马奇",
-            "otherName":"索利,马奇",
-            "number":0,
-            "positionStr":"midfielder",
-            "position":3,
-            "teamInfo":{
-                "teamId":30,
-                "teamName":"布莱顿",
-                "flag":"http://statics.itc.cn/football/teamicon/30.png",
-                "group":null
-            },
-            "photo":null,
-            "age":24,
-            "birthDate":"1994-07-26"
-        },
-        "games":2,
-        "minutes":0,
-        "goals":0,
-        "assists":1,
-        "pGoals":0,
-        "passes":38,
-        "shortPasses":4,
-        "mediumPasses":33,
-        "longPasses":1,
-        "tackles":1,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    },
-    {
-        "playerId":345035,
-        "playerInfo":{
-            "playerId":345035,
-            "playerName":"穆尼耶",
-            "otherName":"史蒂夫,穆尼伊",
-            "number":0,
-            "positionStr":"forward",
-            "position":2,
-            "teamInfo":{
-                "teamId":59,
-                "teamName":"哈德斯菲尔德",
-                "flag":"http://statics.itc.cn/football/teamicon/59.png",
-                "group":null
-            },
-            "photo":null,
-            "age":23,
-            "birthDate":"1994-09-29"
-        },
-        "games":2,
-        "minutes":0,
-        "goals":0,
-        "assists":1,
-        "pGoals":0,
-        "passes":21,
-        "shortPasses":1,
-        "mediumPasses":20,
-        "longPasses":0,
-        "tackles":3,
-        "fouls":0,
-        "clears":0,
-        "rCards":0,
-        "yCards":0
-    }
-];
+  List playerList;
+  Dio dio = new Dio();
+
+  _getPlayersData() async {
+    final url = 'https://v2.sohu.com/sports-data/football/17/standings/assists';
+    Response res = await dio.get(url, data: {});
+    var dataList = res.data == null ? [] : res.data;
+    if (!mounted) return;
+    setState(() {
+      playerList = dataList;
+    });
+  }
+
+  @override
+  void initState() {
+    _getPlayersData();
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(oldWidget) {
+    _getPlayersData();
+    super.didUpdateWidget(oldWidget);
+  }
 
   Container _buildTitleSection() {
     return Container(
-            color: Colors.grey,
-            padding: EdgeInsets.symmetric(horizontal: 15.0),
-            height: 36.0,
-            child: Row(
-              children: [
+        color: Colors.grey,
+        padding: EdgeInsets.symmetric(horizontal: 15.0),
+        height: 36.0,
+        child: Row(
+          children: [
+            Expanded(
+              flex: 2,
+              child: Text('球员'),
+            ),
+            Expanded(
+              flex: 3,
+              child: Row(children: [
                 Expanded(
-                  flex: 2,
-                  child: Text('球员'),
+                  flex: 1,
+                  child: Text('球队', textAlign: TextAlign.center),
                 ),
                 Expanded(
-                  flex: 3,
-                  child: Row(children: [
-                    Expanded(
-                      flex: 1,
-                      child: Text('球队', textAlign: TextAlign.center),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Text('助攻', textAlign: TextAlign.center),
-                    ),
-                  ]),
-                )
-              ],
-            ));
+                  flex: 1,
+                  child: Text('助攻', textAlign: TextAlign.center),
+                ),
+              ]),
+            )
+          ],
+        ));
   }
 
   Container _getItemWidget(item) {
@@ -1209,11 +76,13 @@ class _StandingAssistsState extends State<StandingAssists> {
                       child: Text(item['rank'], textAlign: TextAlign.center),
                     ),
                     Container(
-                      width: 6 * 12.0,
-                      padding: EdgeInsets.only(left: 2.0),
-                      child: Text(item['playerName'], softWrap:true, overflow: TextOverflow.ellipsis,)
-                    )
-                    
+                        width: 6 * 12.0,
+                        padding: EdgeInsets.only(left: 2.0),
+                        child: Text(
+                          item['playerName'],
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
+                        ))
                   ],
                 )),
             Expanded(
@@ -1221,11 +90,13 @@ class _StandingAssistsState extends State<StandingAssists> {
               child: Row(children: [
                 Expanded(
                   flex: 1,
-                  child: Text(item['playerInfo']['teamInfo']['teamName'], textAlign: TextAlign.center),
+                  child: Text(item['playerInfo']['teamInfo']['teamName'],
+                      textAlign: TextAlign.center),
                 ),
                 Expanded(
                   flex: 1,
-                  child: Text('${item["assists"]}', textAlign: TextAlign.center),
+                  child:
+                      Text('${item["assists"]}', textAlign: TextAlign.center),
                 ),
               ]),
             )
@@ -1233,18 +104,19 @@ class _StandingAssistsState extends State<StandingAssists> {
         ));
   }
 
-  List<Widget> _getTeamItem() {
+  List _getPlayerItem() {
     Color bg;
     List formatList = [];
     var item;
     int trueRank = 1;
     int currentNum = 0;
+    if (playerList == null) return [];
     for (var i = 0; i < playerList.length; i++) {
       item = playerList[i];
       // 处理排名
       if (currentNum == 0) {
         currentNum = item['goals'];
-      } 
+      }
       if (item['goals'] < currentNum) {
         currentNum = item['goals'];
         trueRank = i + 1;
@@ -1258,28 +130,27 @@ class _StandingAssistsState extends State<StandingAssists> {
       }
       item['bg'] = bg;
       // 处理 playerName
-      item['playerName'] = item['playerInfo']['playerName'] != null ?  item['playerInfo']['playerName'] : item['playerInfo']['otherName'];
+      item['playerName'] = item['playerInfo']['playerName'] != null
+          ? item['playerInfo']['playerName']
+          : item['playerInfo']['otherName'];
 
       formatList.add(item);
     }
-    return formatList.map((item) {
-      return new Container(
-        child: _getItemWidget(item),
-      );
-    }).toList();
+    return formatList;
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        _buildTitleSection(),
-        Container(
-            child: Column(
-          children: _getTeamItem(),
-        )),
-        //
-      ],
+    var formatList = _getPlayerItem();
+    return ListView.builder(
+      itemCount: formatList.length + 1,
+      itemBuilder: (context, index) {
+        if (index == 0) {
+          return _buildTitleSection();
+        } else {
+          return _getItemWidget(formatList[index - 1]);
+        }
+      },
     );
   }
 }
