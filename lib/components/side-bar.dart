@@ -53,10 +53,7 @@ class _SideBar extends State<SideBar> {
             Container(
               width: 30.0,
               height: 30.0,
-              child: FadeInImage.assetNetwork(
-                placeholder: '/images/preload.png',
-                image: '${item["icon"]}',
-              ),
+              child: Image.network(item['icon'])
             ),
             Container(
               margin: EdgeInsets.only(left: 18.0),
