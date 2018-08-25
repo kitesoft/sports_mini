@@ -58,6 +58,6 @@ class Moment {
   }
 
   void getDiff({int delta: 0, bool format: false}) {
-    var diff = ;
+    var diff = '';
   }
 }
