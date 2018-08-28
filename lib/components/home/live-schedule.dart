@@ -14,7 +14,7 @@ class _LiveSchedule extends State<LiveSchedule> {
   Dio dio = new Dio();
 
   _getScheduleData() async {
-    List codes, games;
+    List codes = [], games = [];
     final hotGameUrl = 'https://v2.sohu.com/sports-api/v2/matches/list/hot';
     final gameListUrl = 'https://v2.sohu.com/sports-data/football/17/game-list';
     Response preRes = await dio.get(hotGameUrl,

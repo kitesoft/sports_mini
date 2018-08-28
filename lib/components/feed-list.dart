@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import './feed-item.dart';
+import 'package:collection/collection.dart';
+import './_helper/feed.dart';
 
 class FeedList extends StatefulWidget {
-  FeedList({Key key}) : super(key: key);
-
+  FeedList({@required this.api, @required this.params});
+  final String api;
+  final Map params;
   @override
   _FeedList createState() => new _FeedList();
 }
@@ -16,60 +19,49 @@ class _FeedList extends State<FeedList> {
   var client = 1;
   var requestId = '1533292365296o3ogyy_1533987330763';
   var pvId = '15339873307630sc2cpc';
-  var feedList = [];
+  List feedList = [];
   Dio dio = new Dio();
 
-  // @override
-  // void initState() {
-  //   this.feedList = _getFeedList();
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    _getFeedList();
+    super.initState();
+  }
 
   @override
   void didUpdateWidget(oldWidget) {
-    // _getFeedList();
+    _getFeedList();
     super.didUpdateWidget(oldWidget);
   }
 
   _getFeedList() async {
-    final url = 'https://v2.sohu.com/integration-api/mix/region/15';
-    Response res = await dio.get(url, data: {
-      'page': pageNo,
-      'size': pageSize,
-      'mpId': mpId,
-      'client': client,
-      'requestId': requestId,
-      'pvId': pvId
+    var reqParam = new CombinedMapView([
+      widget.params,
+      {
+        'page': pageNo,
+        'size': pageSize,
+        'mpId': mpId,
+        'client': client,
+        'requestId': requestId,
+        'pvId': pvId
+      }
+    ]);
+    Response res = await dio.get(widget.api, data: reqParam);
+    var dataList = res.data != null ? res.data['data'] : [];
+    setState(() {
+      feedList = FeedUtil.formatFeedList(dataList);
     });
-    // debugPrint(res.data.toString());
   }
-
-  Map feedM = {'showType': 1};
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 15.0),
-      child: Column(
-        children: <Widget>[
-          FeedItem({'showType': '1'}),
-          FeedItem({'showType': '2'}),
-          FeedItem({'showType': '5'}),
-          // FeedItem(feed: {
-          //   'type': 2
-          // }),
-          // FeedItem(feed: {
-          //   'type': 3
-          // }),
-          // FeedItem(feed: {
-          //   'type': 4
-          // }),
-          // FeedItem(feed: {
-          //   'type': 5
-          // }),
-        ],
-      ),
-    );
+        padding: EdgeInsets.symmetric(horizontal: 15.0),
+        child: ListView.builder(
+          itemCount: feedList.length,
+          itemBuilder: (context, index) {
+            return FeedItem(feed: feedList[index]);
+          },
+        ));
   }
 }

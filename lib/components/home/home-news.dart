@@ -8,20 +8,18 @@ class HomeNews extends StatefulWidget {
 }
 
 class _HomeNewsState extends State<HomeNews> {
+  final String feedApi = 'https://v2.sohu.com/integration-api/mix/region/15';
+  final Map feedParams = {};
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        // 热门赛事
-        Expanded(
-          child: ListView(
-            children: <Widget>[
-              LiveSchedule(),
-              FeedList(),
-            ],
-          ),
-        )
-      ],
-    );
+    return FeedList(api: feedApi, params: feedParams);
+    // return Column(
+    //   children: [
+    //     // 热门赛事
+    //     // LiveSchedule(),
+    //     FeedList(api: feedApi, params: feedParams)
+    //   ],
+    // );
   }
 }
