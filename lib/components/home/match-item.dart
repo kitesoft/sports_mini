@@ -20,10 +20,7 @@ class _MatchItemState extends State<MatchItem> {
               child: Column(children: [
                 Container(
                   width: 50.0, height: 50.0,
-                  child: FadeInImage.assetNetwork(
-                    placeholder: '/images/preload.png',
-                    image: item['hTeamData']['flag'],
-                  ),
+                  child: Image.network(item['hTeamData']['flag']),
                 ),
                 Container(
                   margin: EdgeInsets.only(top: 10.0),
@@ -60,10 +57,7 @@ class _MatchItemState extends State<MatchItem> {
               child: Column(children: [
                 Container(
                   width: 50.0, height: 50.0,
-                  child: FadeInImage.assetNetwork(
-                    placeholder: '/images/preload.png',
-                    image: item['vTeamData']['flag'],
-                  ),
+                  child: Image.network(item['vTeamData']['flag']),
                 ),
                 Container(
                   margin: EdgeInsets.only(top: 10.0),

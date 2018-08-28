@@ -24,12 +24,16 @@ const String LEAGUE_NAME = '英超';
 class MatchUtil {
   static formatMatchList(List list, String type) {
     var moment;
-    return list.map((item) {
-      moment = new DateTime.fromMillisecondsSinceEpoch(item['dateTime']);
-      item['date'] = moment.month.toString().padLeft(2,'0') + '-' + moment.day.toString().padLeft(2, '0');
-      item['week'] = '星期' + moment.weekday.toString();
-      return item;
-    }).toList();
+    List formatList = [];
+    if (list != null && list.length > 0) {
+      formatList = list.map((item) {
+        moment = new DateTime.fromMillisecondsSinceEpoch(item['dateTime']);
+        item['date'] = moment.month.toString().padLeft(2,'0') + '-' + moment.day.toString().padLeft(2, '0');
+        item['week'] = '星期' + moment.weekday.toString();
+        return item;
+      }).toList();
+    }
+    return formatList;
   }
 
   static formatGameList(List list, bool isLive, String type) {

@@ -1,15 +1,17 @@
 import 'package:intl/intl.dart';
-import 'dart:math';
 
 class Moment {
   int time;
   DateTime date;
-  Moment(dynamic timestamp) {
+  Moment({int timestamp = 0}) {
+    if (timestamp == 0) {
+      timestamp = DateTime.now().millisecondsSinceEpoch;
+    }
     this.time = timestamp;
-    this.date = new DateTime.fromMillisecondsSinceEpoch(timestamp);
+    this.date = new DateTime.fromMillisecondsSinceEpoch(this.time);
   }
 
-  String formatTime({String format: 'yyyy-MM-dd'}) {
+  String formatTime({String format = 'yyyyMMdd'}) {
     var formatter = new DateFormat(format);
     return formatter.format(this.date);
   }
