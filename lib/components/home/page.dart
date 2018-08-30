@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../webview/view.dart';
 import '../side-bar.dart';
 import './home-news.dart';
 import './match-list.dart';
@@ -25,9 +26,7 @@ class _MyHomePageState extends State<MyHomePage>
     super.initState();
     tabController = TabController(vsync: this, length: 5)
       ..addListener(() {
-        setState(() {
-          
-        });
+        setState(() {});
       });
   }
 
@@ -40,42 +39,52 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-          bottom: TabBar(
-            tabs: [
-              Tab(
-                child: Text('要闻'),
-              ),
-              Tab(
-                child: Text('赛程'),
-              ),
-              Tab(
-                  child: Text('积分')
-              ),
-              Tab(
-                  child: Text('射手'),
-              ),
-              Tab(
-                  child: Text('助攻'),
-              ),
-            ],
-            indicatorColor: Colors.white,
-            controller: tabController,
-          ),
-        ),
-        endDrawer: new Drawer(
-          child: new SideBar(),
-        ),
-        body: TabBarView(
-          controller: tabController,
-          children: [
-            HomeNews(),
-            MatchList(),
-            StandingTeams(),
-            StandingShooters(),
-            StandingAssists()
+      appBar: AppBar(
+        title: Text(widget.title),
+        bottom: TabBar(
+          tabs: [
+            Tab(
+              child: Text('要闻'),
+            ),
+            Tab(
+              child: Text('赛程'),
+            ),
+            Tab(child: Text('积分')),
+            Tab(
+              child: Text('射手'),
+            ),
+            Tab(
+              child: Text('助攻'),
+            ),
           ],
-        ));
+          indicatorColor: Colors.white,
+          controller: tabController,
+        ),
+      ),
+      endDrawer: new Drawer(
+        child: new SideBar(),
+      ),
+      body: TabBarView(
+        controller: tabController,
+        children: [
+          HomeNews(),
+          MatchList(),
+          StandingTeams(),
+          StandingShooters(),
+          StandingAssists()
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        tooltip: '跳转手搜',
+        onPressed: () {
+          Navigator.of(context).push(new PageRouteBuilder(pageBuilder:
+              (BuildContext context, Animation<double> animation,
+                  Animation<double> secondaryAnimation) {
+            return new WebView(url: 'https://m.sohu.com', title: '手搜首页');
+          }));
+        },
+        child: new Icon(Icons.add),
+      ),
+    );
   }
 }
