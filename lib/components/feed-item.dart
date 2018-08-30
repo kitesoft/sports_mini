@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 
 class FeedItem extends StatelessWidget {
-  FeedItem({
-    @required this.feed
-  });
+  FeedItem({@required this.feed});
   final Map feed;
   // 方便开发的 border
   BoxDecoration devBorder() {
     return new BoxDecoration(
-      border:new Border.all(
-          color:const Color(0xff6d999b),
-      )
-    );
+        border: new Border.all(
+      color: const Color(0xff6d999b),
+    ));
   }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -34,8 +32,7 @@ class FeedItem extends StatelessWidget {
           children: <Widget>[
             Container(
                 margin: EdgeInsetsDirectional.only(bottom: 7.5),
-                child: Text(
-                    this.feed['title'],
+                child: Text(this.feed['title'],
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.left,
                     maxLines: 2,
@@ -45,6 +42,18 @@ class FeedItem extends StatelessWidget {
                 Text(
                   this.feed['authorName'],
                   style: TextStyle(fontSize: 12.0, color: Colors.grey),
+                ),
+                Row(
+                  children: [
+                    Container(
+                      width: 10.0,
+                      child: Text('·',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 12.0, color: Colors.grey)),
+                    ),
+                    Text(this.feed['showTime'],
+                        style: TextStyle(fontSize: 12.0, color: Colors.grey))
+                  ],
                 )
               ],
             )
@@ -66,18 +75,34 @@ class FeedItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
+                          // decoration: devBorder(),
                           margin: EdgeInsetsDirectional.only(bottom: 15.0),
                           child: Text(
                             this.feed['title'],
+                            textAlign: TextAlign.left,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
                             style: TextStyle(fontSize: 17.0, height: 1.3),
                           )),
                       Row(
                         children: [
-                          Text(
-                            this.feed['authorName'], 
-                          style: TextStyle(fontSize: 12.0, color: Colors.grey))
+                          Text(this.feed['authorName'],
+                              style: TextStyle(
+                                  fontSize: 12.0, color: Colors.grey)),
+                          Row(
+                            children: [
+                              Container(
+                                width: 10.0,
+                                child: Text('·',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.grey)),
+                              ),
+                              Text(this.feed['showTime'],
+                                  style: TextStyle(
+                                      fontSize: 12.0, color: Colors.grey))
+                            ],
+                          )
                         ],
                       )
                     ],
@@ -101,26 +126,32 @@ class FeedItem extends StatelessWidget {
           children: <Widget>[
             Container(
                 margin: EdgeInsetsDirectional.only(bottom: 7.5),
-                child: Text(
-                    this.feed['title'],
+                child: Text(this.feed['title'],
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
-                    style: TextStyle(fontSize: 18.0, height: 1.3))
-            ),
+                    style: TextStyle(fontSize: 18.0, height: 1.3))),
             Container(
               width: bigImgSize['width'],
               margin: EdgeInsets.only(bottom: 8.0),
               height: 196.0,
               decoration: new BoxDecoration(
-                image: new DecorationImage(image: new NetworkImage(feed['picUrl']))
+                  image: new DecorationImage(
+                      image: new NetworkImage(feed['picUrl']))),
+              child: Icon(
+                Icons.play_circle_outline,
+                color: Colors.white,
+                size: 60.0,
               ),
-              child: Icon(Icons.play_circle_outline, color: Colors.white, size: 60.0,),
             ),
             Row(
               children: <Widget>[
                 Text(
                   this.feed['authorName'],
                   style: TextStyle(fontSize: 12.0, color: Colors.grey),
+                ),
+                Container(
+                  child: Text(this.feed['showTime'],
+                      style: TextStyle(fontSize: 12.0, color: Colors.grey)),
                 )
               ],
             )

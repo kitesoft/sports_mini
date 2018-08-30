@@ -14,12 +14,13 @@ class _HomeNewsState extends State<HomeNews> {
   @override
   Widget build(BuildContext context) {
     return FeedList(api: feedApi, params: feedParams);
-    // return Column(
+    // return Expanded(
+    //     child: Column(
     //   children: [
     //     // 热门赛事
-    //     // LiveSchedule(),
+    //     LiveSchedule(),
     //     FeedList(api: feedApi, params: feedParams)
     //   ],
-    // );
+    // ));
   }
 }

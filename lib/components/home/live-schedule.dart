@@ -61,7 +61,9 @@ class _LiveSchedule extends State<LiveSchedule> {
                   height: 27.0,
                   child: Image.network(item['hTeamData']['flag']),
                 ),
-                Container(padding: EdgeInsets.only(top: 6.0), child: Text(item['hTeamData']['teamName']))
+                Container(
+                    padding: EdgeInsets.only(top: 6.0),
+                    child: Text(item['hTeamData']['teamName']))
               ],
             ),
           ),
@@ -72,14 +74,16 @@ class _LiveSchedule extends State<LiveSchedule> {
                 Text(item['title'], style: TextStyle(fontSize: 7.0)),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 4.0),
-                  child: Text(item['progressShow'], style: TextStyle(fontSize: 13.0)),
+                  child: Text(item['progressShow'],
+                      style: TextStyle(fontSize: 13.0)),
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 3.0, horizontal: 6.0),
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey[500]),
                       borderRadius: BorderRadius.circular(6.0)),
-                  child: Text(item['statusShow'], style: TextStyle(fontSize: 8.0)),
+                  child:
+                      Text(item['statusShow'], style: TextStyle(fontSize: 8.0)),
                 )
               ],
             ),
@@ -98,7 +102,8 @@ class _LiveSchedule extends State<LiveSchedule> {
                   child: Image.network(item['vTeamData']['flag']),
                 ),
                 Container(
-                    padding: EdgeInsets.only(top: 6.0), child: Text(item['vTeamData']['teamName']))
+                    padding: EdgeInsets.only(top: 6.0),
+                    child: Text(item['vTeamData']['teamName']))
               ],
             ),
           )
@@ -121,21 +126,23 @@ class _LiveSchedule extends State<LiveSchedule> {
   Widget build(BuildContext context) {
     List renderList = MatchUtil.formatGameList(matchList, false, 'football');
     // TODO: implement build
-    return new Container(
-      height: 79.0,
-      padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0),
-      decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(width: 5.0, color: Colors.grey))),
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: renderList == null ? 0 : renderList.length + 1,
-        itemBuilder: (context, index) {
-          if (index == renderList.length) {
-            return _buildMoreBtn();
-          } else {
-            return _buildItem(renderList[index]);
-          }
-        },
+    return new Flexible(
+      child: Container(
+        height: 79.0,
+        padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0),
+        decoration: BoxDecoration(
+            border: Border(bottom: BorderSide(width: 5.0, color: Colors.grey))),
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: renderList == null ? 0 : renderList.length + 1,
+          itemBuilder: (context, index) {
+            if (index == renderList.length) {
+              return _buildMoreBtn();
+            } else {
+              return _buildItem(renderList[index]);
+            }
+          },
+        ),
       ),
     );
   }

@@ -38,7 +38,7 @@ class MatchUtil {
 
   static formatGameList(List list, bool isLive, String type) {
     List games;
-    if (list.length > 0) {
+    if (list != null && list.length > 0) {
       games = list.map((game){
         // game['link'] = BASE_URL + '/match' + game['gameCode'];
         game['hname'] = game['hTeamData'] == null ? '' : game['hTeamData']['teamName'];

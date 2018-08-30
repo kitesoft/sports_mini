@@ -55,13 +55,12 @@ class _FeedList extends State<FeedList> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.symmetric(horizontal: 15.0),
-        child: ListView.builder(
-          itemCount: feedList.length,
-          itemBuilder: (context, index) {
-            return FeedItem(feed: feedList[index]);
-          },
-        ));
+    return ListView.builder(
+      padding: EdgeInsets.symmetric(horizontal: 15.0),
+      itemCount: feedList.length,
+      itemBuilder: (context, index) {
+        return FeedItem(feed: feedList[index]);
+      },
+    );
   }
 }
