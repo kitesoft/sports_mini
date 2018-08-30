@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import "package:pull_to_refresh/pull_to_refresh.dart";
+import '../../common/loading.dart';
 import './match-item.dart';
 import '../_helper/match.dart';
 import '../../_utils/moment.dart';
@@ -16,6 +17,25 @@ class _MatchListState extends State<MatchList> {
   List matchList;
   var firstTime;
   var lastTime;
+
+  @override
+  void initState() {
+    _initMatchData();
+    _refreshController = new RefreshController();
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(oldWidget) {
+    _initMatchData();
+    super.didUpdateWidget(oldWidget);
+  }
+
+  _preFormat(List list, int ignoreTime) {
+    return list.where((item) {
+      return item['dateTime'] != ignoreTime;
+    }).toList();
+  }
 
   _fetchData(Map opt) async {
     final url = 'https://v2.sohu.com/sports-data/football/17/schedule';
@@ -53,7 +73,8 @@ class _MatchListState extends State<MatchList> {
 
   _loadForward() async {
     var oldDate = new Moment(timestamp: firstTime).formatTime();
-    var oldList = await _fetchData({'days': -1, 'date': oldDate});
+    var preOldList = await _fetchData({'days': -1, 'date': oldDate});
+    var oldList = _preFormat(preOldList, firstTime);
     var joinList = new List.from(oldList)..addAll(matchList);
     _refreshController.sendBack(true, RefreshStatus.completed);
     setState(() {
@@ -64,26 +85,19 @@ class _MatchListState extends State<MatchList> {
 
   _loadAfter() async {
     var newDate = new Moment(timestamp: lastTime).formatTime();
-    var newList = await _fetchData({'days': 1, 'date': newDate});
+    var preNewList = await _fetchData({'days': 1, 'date': newDate});
+    var newList = _preFormat(preNewList, lastTime);
+    final int loadNum = newList.length;
     var joinList = new List.from(matchList)..addAll(newList);
-    _refreshController.sendBack(true, RefreshStatus.completed);
+    if (loadNum == 0) {
+      _refreshController.sendBack(false, RefreshStatus.noMore);
+    } else {
+      _refreshController.sendBack(false, RefreshStatus.canRefresh);
+    }
     setState(() {
       matchList = joinList;
       _updateQueryTime();
     });
-  }
-
-  @override
-  void initState() {
-    _initMatchData();
-    _refreshController = new RefreshController();
-    super.initState();
-  }
-
-  @override
-  void didUpdateWidget(oldWidget) {
-    _initMatchData();
-    super.didUpdateWidget(oldWidget);
   }
 
   Widget _headerCreate(BuildContext context, int mode) {
@@ -100,20 +114,12 @@ class _MatchListState extends State<MatchList> {
   }
 
   void _onRefresh(bool up) {
-    var joinList;
     if (up) {
       _loadForward();
-      // _refreshController.sendBack(true, RefreshStatus.completed);
     } else {
-      // joinList = await _loadAfter();
-      // setState(() {
-      //   matchList = joinList;
-      // });
-      _refreshController.sendBack(true, RefreshStatus.completed);
+      _loadAfter();
     }
   }
-
-  void _onOffsetCallback(bool up, double offset) {}
 
   List _getMatchShowData() {
     List formartList = MatchUtil.formatMatchList(matchList, 'football');
@@ -123,19 +129,22 @@ class _MatchListState extends State<MatchList> {
   @override
   Widget build(BuildContext context) {
     var formatList = _getMatchShowData();
-    return new SmartRefresher(
-        enablePullDown: true,
-        enablePullUp: false,
-        onRefresh: _onRefresh,
-        onOffsetChange: _onOffsetCallback,
-        headerBuilder: _headerCreate,
-        footerBuilder: _footerCreate,
-        controller: _refreshController,
-        child: ListView.builder(
-          itemCount: formatList.length,
-          itemBuilder: (context, index) {
-            return MatchItem(formatList[index]);
-          },
-        ));
+    if (formatList.length == 0) {
+      return BaseLoading();
+    } else {
+      return new SmartRefresher(
+          enablePullDown: true,
+          enablePullUp: true,
+          onRefresh: _onRefresh,
+          headerBuilder: _headerCreate,
+          footerBuilder: _footerCreate,
+          controller: _refreshController,
+          child: ListView.builder(
+            itemCount: formatList.length,
+            itemBuilder: (context, index) {
+              return MatchItem(formatList[index]);
+            },
+          ));
+    }
   }
 }

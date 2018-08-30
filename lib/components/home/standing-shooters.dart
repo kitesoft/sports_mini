@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import '../../common/loading.dart';
 
 class StandingShooters extends StatefulWidget {
   @override
@@ -142,15 +143,19 @@ class _StandingShootersState extends State<StandingShooters> {
   @override
   Widget build(BuildContext context) {
     var formatList = _getPlayerItem();
-    return ListView.builder(
-      itemCount: formatList.length + 1,
-      itemBuilder: (context, index) {
-        if (index == 0) {
-          return _buildTitleSection();
-        } else {
-          return _getItemWidget(formatList[index - 1]);
-        }
-      },
-    );
+    if (formatList.length == 0) {
+      return BaseLoading();
+    } else {
+      return ListView.builder(
+        itemCount: formatList.length + 1,
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            return _buildTitleSection();
+          } else {
+            return _getItemWidget(formatList[index - 1]);
+          }
+        },
+      );
+    }
   }
 }

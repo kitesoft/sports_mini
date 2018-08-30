@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import '../../common/loading.dart';
 
 class StandingTeams extends StatefulWidget {
   @override
@@ -35,38 +36,38 @@ class _StandingTeamsState extends State<StandingTeams> {
 
   Container _buildTitleSection() {
     return Container(
-            color: Colors.grey,
-            padding: EdgeInsets.symmetric(horizontal: 15.0),
-            height: 36.0,
-            child: Row(
-              children: [
+        color: Colors.grey,
+        padding: EdgeInsets.symmetric(horizontal: 15.0),
+        height: 36.0,
+        child: Row(
+          children: [
+            Expanded(
+              flex: 4,
+              child: Text('球队'),
+            ),
+            Expanded(
+              flex: 6,
+              child: Row(children: [
                 Expanded(
-                  flex: 4,
-                  child: Text('球队'),
+                  flex: 18,
+                  child: Text('场', textAlign: TextAlign.center),
                 ),
                 Expanded(
-                  flex: 6,
-                  child: Row(children: [
-                    Expanded(
-                      flex: 18,
-                      child: Text('场', textAlign: TextAlign.center),
-                    ),
-                    Expanded(
-                      flex: 33,
-                      child: Text('胜平负', textAlign: TextAlign.center),
-                    ),
-                    Expanded(
-                      flex: 34,
-                      child: Text('进/净胜', textAlign: TextAlign.center),
-                    ),
-                    Expanded(
-                      flex: 15,
-                      child: Text('积分', textAlign: TextAlign.center),
-                    ),
-                  ]),
-                )
-              ],
-            ));
+                  flex: 33,
+                  child: Text('胜平负', textAlign: TextAlign.center),
+                ),
+                Expanded(
+                  flex: 34,
+                  child: Text('进/净胜', textAlign: TextAlign.center),
+                ),
+                Expanded(
+                  flex: 15,
+                  child: Text('积分', textAlign: TextAlign.center),
+                ),
+              ]),
+            )
+          ],
+        ));
   }
 
   Container _getItemWidget(item) {
@@ -94,11 +95,13 @@ class _StandingTeamsState extends State<StandingTeams> {
                       ),
                     ),
                     Container(
-                      width: 6 * 12.0,
-                      padding: EdgeInsets.only(left: 2.0),
-                      child: Text(item['teamInfo']['teamName'], softWrap:true, overflow: TextOverflow.ellipsis,)
-                    )
-                    
+                        width: 6 * 12.0,
+                        padding: EdgeInsets.only(left: 2.0),
+                        child: Text(
+                          item['teamInfo']['teamName'],
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
+                        ))
                   ],
                 )),
             Expanded(
@@ -148,15 +151,19 @@ class _StandingTeamsState extends State<StandingTeams> {
   @override
   Widget build(BuildContext context) {
     var formatList = _getTeamItem();
-    return ListView.builder(
-      itemCount: formatList.length + 1,
-      itemBuilder: (context, index) {
-        if (index == 0) {
-          return _buildTitleSection();
-        } else {
-          return _getItemWidget(formatList[index - 1]);
-        }
-      },
-    );
+    if (formatList.length == 0) {
+      return BaseLoading();
+    } else {
+      return ListView.builder(
+        itemCount: formatList.length + 1,
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            return _buildTitleSection();
+          } else {
+            return _getItemWidget(formatList[index - 1]);
+          }
+        },
+      );
+    }
   }
 }
