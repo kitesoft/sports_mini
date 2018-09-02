@@ -11,8 +11,8 @@ class MatchItem extends StatefulWidget {
 
 class _MatchItemState extends State<MatchItem> {
   // 生成 Item Widget
-  GestureDetector _buildItemWidget(BuildContext context, Map item) {
-    return GestureDetector(
+  Widget _buildItemWidget(BuildContext context, Map item) {
+    return InkWell(
         onTap: () {
           int leagueId = DEFAULT_LEAGUE['id'];
           Navigator.of(context).push(new PageRouteBuilder(pageBuilder:

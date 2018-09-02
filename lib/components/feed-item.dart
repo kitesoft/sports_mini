@@ -17,7 +17,7 @@ class FeedItem extends StatelessWidget {
   }
 
   @override
-  GestureDetector build(BuildContext context) {
+  Widget build(BuildContext context) {
     // TODO: implement build
     var resComp;
     int showType = this.feed['type'];
@@ -163,7 +163,7 @@ class FeedItem extends StatelessWidget {
         ),
       );
     }
-    return GestureDetector(
+    return InkWell(
       onTap: () {
         this._openArticlePage(context, this.feed);
       }, 

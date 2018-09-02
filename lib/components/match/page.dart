@@ -96,7 +96,7 @@ class _MatchPageState extends State<MatchPage> {
               // 主队信息
               Expanded(
                   flex: 3,
-                  child: GestureDetector(
+                  child: InkWell(
                     onTap: () {
                       int leagueId = DEFAULT_LEAGUE['id'];
                       Navigator.of(context).push(new PageRouteBuilder(
@@ -158,7 +158,7 @@ class _MatchPageState extends State<MatchPage> {
               // 客队信息
               Expanded(
                   flex: 3,
-                  child: GestureDetector(
+                  child: InkWell(
                     onTap: () {
                       int leagueId = DEFAULT_LEAGUE['id'];
                       Navigator.of(context).push(new PageRouteBuilder(
@@ -197,6 +197,13 @@ class _MatchPageState extends State<MatchPage> {
     if (matchData != null) {
       pageBody = _buildPageBody(context);
     }
-    return new Scaffold(body: pageBody);
+    String title = matchData != null ? matchData['hTeamData']['teamName'] + ' vs ' + matchData['vTeamData']['teamName'] : '';
+    return Scaffold(
+        appBar: new AppBar(
+          // 去掉导航栏下面的阴影
+          elevation: 0.0,
+          title: new Text(title),
+        ),
+        body: pageBody);
   }
 }

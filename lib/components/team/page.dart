@@ -85,6 +85,13 @@ class _TeamPageState extends State<TeamPage> {
     if (teamData != null) {
       pageBody = _buildPageBody(context);
     }
-    return new Scaffold(body: pageBody);
+    String title = teamData != null ? teamData['teamInfo']['teamName']: '';
+    return new Scaffold(
+        appBar: new AppBar(
+          // 去掉导航栏下面的阴影
+          elevation: 0.0,
+          title: new Text(title),
+        ),
+        body: pageBody);
   }
 }
