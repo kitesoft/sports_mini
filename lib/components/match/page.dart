@@ -1,23 +1,43 @@
 import 'package:flutter/material.dart';
-import '../../constant.dart';
+import 'package:dio/dio.dart';
 import '../../common/tabs.dart';
+import '../team/page.dart';
+import '../../constant.dart';
+import '../../common/loading.dart';
 
 class MatchPage extends StatefulWidget {
-  MatchPage({Key key, this.title}) : super(key: key);
+  MatchPage({Key key, @required this.leagueId, @required this.gameCode})
+      : super(key: key);
 
-  final String title;
+  final int leagueId;
+  final int gameCode;
   @override
   _MatchPageState createState() => _MatchPageState();
 }
 
 class _MatchPageState extends State<MatchPage> {
-  _getMatchData() async {}
-  // 方便开发的 border
-  BoxDecoration devBorder() {
-    return new BoxDecoration(
-        border: new Border.all(
-      color: const Color(0xff6d999b),
-    ));
+  Dio dio = new Dio();
+  Map matchData;
+  _getMatchData() async {
+    String reqUrl =
+        'http://v2.sohu.com/sports-data/football/${widget.leagueId}/games/${widget.gameCode}';
+    Response res = await dio.get(reqUrl, data: null);
+    var data = res.data != null ? res.data : {};
+    setState(() {
+      matchData = data;
+    });
+  }
+
+  @override
+  void initState() {
+    _getMatchData();
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(oldWidget) {
+    _getMatchData();
+    super.didUpdateWidget(oldWidget);
   }
 
   _buildStatusGradient(int status) {
@@ -36,44 +56,35 @@ class _MatchPageState extends State<MatchPage> {
             Color.fromRGBO(72, 72, 72, 1.0),
           ]);
     } else if (status == 2) {
-      gradient = null;
+      gradient = LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          stops: [
+            0.0,
+            1.0
+          ],
+          colors: [
+            Color.fromRGBO(189, 189, 189, 0.5),
+            Color.fromRGBO(72, 72, 72, 1.0),
+          ]);
+    } else {
+      gradient = LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          stops: [
+            0.0,
+            1.0
+          ],
+          colors: [
+            Color.fromRGBO(189, 189, 189, 0.5),
+            Color.fromRGBO(72, 72, 72, 1.0),
+          ]);
     }
     return gradient;
   }
 
-  final Map matchData = {
-    "gameCode": 14736313,
-    "tournamentId": 17,
-    "gameDateTime": 1535801400000,
-    "gameDateFormat": "2018-09-01 19:30:00",
-    "statusStr": "closed",
-    "status": 4,
-    "group": null,
-    "gameType": 1,
-    "gameOrder": 4,
-    "liveUrl": null,
-    "vTeamScore": 2,
-    "hTeamScore": 1,
-    "vTeamId": 44,
-    "hTeamId": 31,
-    "vTeamData": {
-      "teamId": 44,
-      "teamName": "利物浦",
-      "flag": "http://statics.itc.cn/football/teamicon/44.png",
-      "group": null
-    },
-    "hTeamData": {
-      "teamId": 31,
-      "teamName": "莱斯特城",
-      "flag": "http://statics.itc.cn/football/teamicon/31.png",
-      "group": null
-    }
-  };
-
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-        body: Column(children: [
+  Widget _buildPageBody(BuildContext context) {
+    return Column(children: [
       Container(
           height: 150.0,
           decoration: new BoxDecoration(
@@ -84,23 +95,35 @@ class _MatchPageState extends State<MatchPage> {
             children: [
               // 主队信息
               Expanded(
-                flex: 3,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 40.0,
-                        height: 40.0,
-                        child: Image.network(matchData['hTeamData']['flag']),
-                      ),
-                      Container(
-                          margin: EdgeInsets.only(top: 10.0),
-                          child: Text(matchData['hTeamData']['teamName'],
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(color: Colors.white)))
-                    ]),
-              ),
+                  flex: 3,
+                  child: GestureDetector(
+                    onTap: () {
+                      int leagueId = DEFAULT_LEAGUE['id'];
+                      Navigator.of(context).push(new PageRouteBuilder(
+                          pageBuilder: (BuildContext context,
+                              Animation<double> animation,
+                              Animation<double> secondaryAnimation) {
+                        return new TeamPage(
+                            leagueId: leagueId, teamId: matchData['hTeamId']);
+                      }));
+                    },
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 40.0,
+                            height: 40.0,
+                            child:
+                                Image.network(matchData['hTeamData']['flag']),
+                          ),
+                          Container(
+                              margin: EdgeInsets.only(top: 10.0),
+                              child: Text(matchData['hTeamData']['teamName'],
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(color: Colors.white)))
+                        ]),
+                  )),
               // 对战信息
               Expanded(
                 flex: 4,
@@ -134,26 +157,46 @@ class _MatchPageState extends State<MatchPage> {
               ),
               // 客队信息
               Expanded(
-                flex: 3,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 40.0,
-                        height: 40.0,
-                        child: Image.network(matchData['vTeamData']['flag']),
-                      ),
-                      Container(
-                          margin: EdgeInsets.only(top: 10.0),
-                          child: Text(matchData['vTeamData']['teamName'],
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(color: Colors.white)))
-                    ]),
-              )
+                  flex: 3,
+                  child: GestureDetector(
+                    onTap: () {
+                      int leagueId = DEFAULT_LEAGUE['id'];
+                      Navigator.of(context).push(new PageRouteBuilder(
+                          pageBuilder: (BuildContext context,
+                              Animation<double> animation,
+                              Animation<double> secondaryAnimation) {
+                        return new TeamPage(
+                            leagueId: leagueId, teamId: matchData['vTeamId']);
+                      }));
+                    },
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 40.0,
+                            height: 40.0,
+                            child:
+                                Image.network(matchData['vTeamData']['flag']),
+                          ),
+                          Container(
+                              margin: EdgeInsets.only(top: 10.0),
+                              child: Text(matchData['vTeamData']['teamName'],
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(color: Colors.white)))
+                        ]),
+                  ))
             ],
-          )),
-      JTabs()
-    ]));
+          ))
+    ]);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var pageBody = BaseLoading();
+    if (matchData != null) {
+      pageBody = _buildPageBody(context);
+    }
+    return new Scaffold(body: pageBody);
   }
 }

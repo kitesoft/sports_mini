@@ -18,7 +18,7 @@ class _LiveSchedule extends State<LiveSchedule> {
     final hotGameUrl = 'https://v2.sohu.com/sports-api/v2/matches/list/hot';
     final gameListUrl = 'https://v2.sohu.com/sports-data/football/17/game-list';
     Response preRes = await dio.get(hotGameUrl,
-        data: {'leagueId': 17, 'time': DateTime.now().millisecondsSinceEpoch});
+        data: {'leagueId': '17', 'time': DateTime.now().millisecondsSinceEpoch});
     var result = preRes.data;
     if (result != null && result['code'] == 0) {
       codes = result['data'];

@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
+import '../components/webview/view.dart';
 
 class FeedItem extends StatelessWidget {
   FeedItem({@required this.feed});
   final Map feed;
-  // 方便开发的 border
-  BoxDecoration devBorder() {
-    return new BoxDecoration(
-        border: new Border.all(
-      color: const Color(0xff6d999b),
-    ));
+  
+  //
+  _openArticlePage(BuildContext context,  Map feed) {
+    final String prefix = 'https://m.sohu.com';
+    String artUrl = prefix + feed['link'];
+    Navigator.of(context).push(new PageRouteBuilder(pageBuilder:
+        (BuildContext context, Animation<double> animation,
+            Animation<double> secondaryAnimation) {
+      return new WebView(url: artUrl, title: '手搜文章页');
+    }));
   }
 
   @override
-  Widget build(BuildContext context) {
+  GestureDetector build(BuildContext context) {
     // TODO: implement build
     var resComp;
     int showType = this.feed['type'];
@@ -75,7 +80,6 @@ class FeedItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                          // decoration: devBorder(),
                           margin: EdgeInsetsDirectional.only(bottom: 15.0),
                           child: Text(
                             this.feed['title'],
@@ -159,6 +163,11 @@ class FeedItem extends StatelessWidget {
         ),
       );
     }
-    return resComp;
+    return GestureDetector(
+      onTap: () {
+        this._openArticlePage(context, this.feed);
+      }, 
+      child: resComp
+    );
   }
 }

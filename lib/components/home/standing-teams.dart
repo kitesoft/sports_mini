@@ -90,7 +90,7 @@ class _StandingTeamsState extends State<StandingTeams> {
                       height: 13.0,
                       margin: EdgeInsets.symmetric(horizontal: 5.0),
                       child: FadeInImage.assetNetwork(
-                        placeholder: '/images/preload.png',
+                        placeholder: 'images/preload.png',
                         image: item['teamInfo']['flag'],
                       ),
                     ),

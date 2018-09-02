@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: '体育+',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: MatchPage(title: '体育+'),
+      home: MyHomePage(title: '体育+'),
       routes: {
         "/webview": (ctx){
           print(ctx);

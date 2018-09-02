@@ -142,7 +142,7 @@ class _MatchListState extends State<MatchList> {
           child: ListView.builder(
             itemCount: formatList.length,
             itemBuilder: (context, index) {
-              return MatchItem(formatList[index]);
+              return MatchItem(match: formatList[index]);
             },
           ));
     }
