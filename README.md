@@ -1,8 +1,21 @@
 # sports_mini
 
-A new Flutter project.
+搜狐体育APP的flutter-Demo.
 
-## Getting Started
+# 开发之前
+英文官网(文档等更新及时)：https://flutter.io/
+Flutter 中文网：https://flutterchina.club/
 
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+#wiki
+http://confluence.sohuno.com/display/SOHUMP/Flutter
+
+#其他
+
+
+##论坛
+https://juejin.im/tag/Flutter?utm_source=flutterchina&utm_medium=word&utm_content=btn&utm_campaign=q3_website
+
+##值得学习的项目
+https://github.com/luhenchang/flutter_study
+
+
