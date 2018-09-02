@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './components/home/page.dart';
+import './components/match/page.dart';
 import './components/webview/view.dart';
 import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: '体育+',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: MyHomePage(title: '体育+'),
+      home: MatchPage(title: '体育+'),
       routes: {
         "/webview": (ctx){
           print(ctx);
