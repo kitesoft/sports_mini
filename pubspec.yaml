@@ -12,6 +12,7 @@ dependencies:
   pull_to_refresh: ^1.1.5
   # https://github.com/peng8350/flutter_pulltorefresh
   intl: ^0.15.7
+  flutter_redux: ^0.5.2
 
 dev_dependencies:
   flutter_test:

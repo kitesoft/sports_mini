@@ -17,12 +17,6 @@ class MyApp extends StatelessWidget {
       title: '体育+',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: MyHomePage(title: '体育+'),
-      routes: {
-        "/webview": (ctx){
-          print(ctx);
-        }
-      },
-      
     );
   }
 }
