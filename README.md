@@ -17,5 +17,7 @@ https://juejin.im/tag/Flutter?utm_source=flutterchina&utm_medium=word&utm_conten
 
 ## 值得学习的项目
 https://github.com/luhenchang/flutter_study
+https://github.com/iampawan/FlutterExampleApps
+https://github.com/CarGuo/GSYGithubAppFlutter
 
 
