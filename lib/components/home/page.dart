@@ -38,7 +38,6 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    String feedStreamId = widget.league.feed == null ? null : widget.league.feed['home'];
     return new Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -68,8 +67,8 @@ class _HomePageState extends State<HomePage>
       body: TabBarView(
         controller: tabController,
         children: [
-          HomeNews(streamId: feedStreamId),
-          MatchList(),
+          HomeNews(streamId: widget.league.feed['home']),
+          MatchList(league: widget.league),
           StandingTeams(),
           StandingShooters(),
           StandingAssists()

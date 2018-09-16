@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import '../match/page.dart';
 import '../../constant.dart';
 
-class MatchItem extends StatefulWidget {
+class MatchItem extends StatelessWidget {
   MatchItem({@required this.match});
   final Map match;
-  @override
-  _MatchItemState createState() => _MatchItemState();
-}
-
-class _MatchItemState extends State<MatchItem> {
   // 生成 Item Widget
   Widget _buildItemWidget(BuildContext context, Map item) {
     return InkWell(
@@ -19,9 +14,7 @@ class _MatchItemState extends State<MatchItem> {
               (BuildContext context, Animation<double> animation,
                   Animation<double> secondaryAnimation) {
             return new MatchPage(
-              leagueId: leagueId,
-              gameCode: item['gameCode']
-            );
+                leagueId: leagueId, gameCode: item['gameCode']);
           }));
         },
         child: Container(
@@ -35,11 +28,11 @@ class _MatchItemState extends State<MatchItem> {
                     Container(
                       width: 50.0,
                       height: 50.0,
-                      child: Image.network(item['hTeamData']['flag']),
+                      child: Image.network(item['hflag']),
                     ),
                     Container(
                         margin: EdgeInsets.only(top: 10.0),
-                        child: Text(item['hTeamData']['teamName'],
+                        child: Text(item['hname'],
                             maxLines: 1, overflow: TextOverflow.ellipsis))
                   ]),
                 ),
@@ -47,12 +40,13 @@ class _MatchItemState extends State<MatchItem> {
                   flex: 4,
                   child: Column(children: [
                     Text(
-                      '英超第二轮',
+                      item['title'],
                       style: TextStyle(color: Colors.grey),
                     ),
                     Container(
                       padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text('3 - 2', style: TextStyle(fontSize: 19.0)),
+                      child: Text(item['progressShow'],
+                          style: TextStyle(fontSize: 19.0)),
                     ),
                     Container(
                         width: 55.0,
@@ -61,7 +55,8 @@ class _MatchItemState extends State<MatchItem> {
                             borderRadius: BorderRadius.circular(6.0),
                             color: Colors.blue),
                         child: Center(
-                            child: Text('已结束',
+                            child: Text(
+                                item['statusShow'],
                                 style: TextStyle(
                                     fontSize: 10.0, color: Colors.white),
                                 textAlign: TextAlign.center)))
@@ -73,11 +68,11 @@ class _MatchItemState extends State<MatchItem> {
                     Container(
                       width: 50.0,
                       height: 50.0,
-                      child: Image.network(item['vTeamData']['flag']),
+                      child: Image.network(item['vflag']),
                     ),
                     Container(
                         margin: EdgeInsets.only(top: 10.0),
-                        child: Text(item['hTeamData']['teamName'],
+                        child: Text(item['vname'],
                             maxLines: 1, overflow: TextOverflow.ellipsis))
                   ]),
                 )
@@ -86,7 +81,7 @@ class _MatchItemState extends State<MatchItem> {
   }
 
   List<Widget> _buildGames(BuildContext context) {
-    List games = widget.match['games'];
+    List games = this.match['games'];
     return games.map((item) {
       return _buildItemWidget(context, item);
     }).toList();
@@ -102,8 +97,8 @@ class _MatchItemState extends State<MatchItem> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Icon(Icons.date_range),
-              Text(widget.match['date']),
-              Text(widget.match['week'])
+              Text(this.match['date']),
+              Text(this.match['week'])
             ],
           )),
       Column(children: _buildGames(context))

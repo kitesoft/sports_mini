@@ -124,7 +124,7 @@ class _LiveSchedule extends State<LiveSchedule> {
 
   @override
   Widget build(BuildContext context) {
-    List renderList = MatchUtil.formatGameList(matchList, false, 'football');
+    List renderList = MatchUtil.formatGameList(matchList, false, 'football', null);
     // TODO: implement build
     return new Flexible(
       child: Container(

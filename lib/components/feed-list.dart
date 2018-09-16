@@ -57,7 +57,6 @@ class _FeedList extends State<FeedList> {
 
   _initFeedList() async {
     var reqParam = new CombinedMapView([widget.params, feedReqParam]);
-    print(widget.api);
     Response res = await dio.get(widget.api, data: reqParam);
     var dataList = res.data != null ? res.data['data'] : [];
     setState(() {

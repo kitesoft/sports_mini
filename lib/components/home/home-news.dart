@@ -1,15 +1,5 @@
 import 'package:flutter/material.dart';
 import '../feed-list.dart';
-// import './live-schedule.dart';
-import '../../model/league.dart';
-
-// class HomeNews extends StatefulWidget {
-//   HomeNews({Key key, this.league}) : super(key: key);
-//   final League league;
-//   @override
-//   _HomeNewsState createState() => _HomeNewsState();
-// }
-
 class HomeNews extends StatelessWidget {
   HomeNews({Key key, this.streamId}) : super(key: key);
   final String streamId;
