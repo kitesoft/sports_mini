@@ -1,7 +1,10 @@
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux/redux.dart';
-import '../model/league.dart';
+import 'package:sports_mini/store/actions.dart';
+import 'package:sports_mini/store/state.dart';
 
-League mainReducer(League state, dynamic action) {
+AppState mainReducer(AppState state, dynamic action) {
+  if (action is SetCurLeagueAction) {
+    state.curLeague = action.league;
+    print(state.curLeague.name.toString());
+  }
   return state;
 }

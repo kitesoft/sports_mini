@@ -6,17 +6,19 @@ import './match-list.dart';
 import './standing-teams.dart';
 import './standing-shooters.dart';
 import 'standing-assists.dart';
+//
+import 'package:sports_mini/model/league.dart';
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
+class HomePage extends StatefulWidget {
+  HomePage({Key key, this.title, this.league}) : super(key: key);
+  final League league;
   final String title;
 
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _HomePageState createState() => new _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage>
+class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   TabController tabController;
   @override
