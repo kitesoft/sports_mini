@@ -25,8 +25,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(primarySwatch: Colors.blue),
             home: new StoreConnector<AppState, AppState>(
               builder: (BuildContext context, AppState state) {
-                return new HomePage(
-                    title: '搜狐体育', league: state.curLeague);
+                return new HomePage(title: state.curLeague.name, league: state.curLeague);
               },
               converter: (Store<AppState> store) {
                 return store.state;

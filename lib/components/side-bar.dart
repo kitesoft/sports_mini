@@ -5,6 +5,8 @@ import 'package:redux/redux.dart';
 import 'package:sports_mini/model/league.dart';
 import 'package:sports_mini/store/state.dart';
 import 'package:sports_mini/store/actions.dart';
+//
+import '../store/data/leagues.dart';
 
 class SideBar extends StatefulWidget {
   SideBar({Key key}) : super(key: key);
@@ -80,8 +82,14 @@ class _SideBar extends State<SideBar> {
           );
         },
         converter: (Store<AppState> store) {
-          return () => store.dispatch(
-              new SetCurLeagueAction(league: new League(id: item['leagueId'], name: item['name'])));
+          return (){
+            store.dispatch(
+              new SetCurLeagueAction(
+                  league: League.fromJson(leagueList[item['leagueId']])
+                )
+            );
+            Navigator.pop(context);
+          };
         },
       );
   }

@@ -1,6 +1,12 @@
 class League {
-  final String id;
-  final String name;
+  String id;
+  String name;
+  Map feed;
   // Constructor
-  League({this.id, this.name});
+  League({this.id, this.name, this.feed});
+  League.fromJson(Map json) {
+    this.id = json["id"];
+    this.name = json["name"];
+    this.feed = json["feed"];
+  }
 }

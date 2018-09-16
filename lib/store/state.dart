@@ -1,6 +1,7 @@
 import 'package:sports_mini/model/league.dart';
+import './data/leagues.dart';
 
-final League initLeague = new League(id: '17', name: '英超');
+final League initLeague = League.fromJson(leagueList['17']);
 
 class AppState {
   League curLeague;

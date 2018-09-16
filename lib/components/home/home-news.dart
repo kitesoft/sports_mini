@@ -1,19 +1,31 @@
 import 'package:flutter/material.dart';
 import '../feed-list.dart';
-import './live-schedule.dart';
+// import './live-schedule.dart';
+import '../../model/league.dart';
 
-class HomeNews extends StatefulWidget {
-  @override
-  _HomeNewsState createState() => _HomeNewsState();
-}
+// class HomeNews extends StatefulWidget {
+//   HomeNews({Key key, this.league}) : super(key: key);
+//   final League league;
+//   @override
+//   _HomeNewsState createState() => _HomeNewsState();
+// }
 
-class _HomeNewsState extends State<HomeNews> {
-  final String feedApi = 'https://v2.sohu.com/integration-api/mix/region/15';
+class HomeNews extends StatelessWidget {
+  HomeNews({Key key, this.streamId}) : super(key: key);
+  final String streamId;
   final Map feedParams = {};
 
   @override
   Widget build(BuildContext context) {
-    return FeedList(api: feedApi, params: feedParams);
+    final String feedApi = 'https://v2.sohu.com/integration-api/mix/region/' + streamId;
+    if (streamId == null) {
+      return Container(
+        child: Text('暂时没有更多内容了……')
+      );
+    } else {
+      return FeedList(api: feedApi, params: feedParams);
+    }
+    
     // return Expanded(
     //     child: Column(
     //   children: [

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../webview/view.dart';
 import '../side-bar.dart';
 import './home-news.dart';
 import './match-list.dart';
@@ -39,6 +38,7 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
+    String feedStreamId = widget.league.feed == null ? null : widget.league.feed['home'];
     return new Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -68,23 +68,12 @@ class _HomePageState extends State<HomePage>
       body: TabBarView(
         controller: tabController,
         children: [
-          HomeNews(),
+          HomeNews(streamId: feedStreamId),
           MatchList(),
           StandingTeams(),
           StandingShooters(),
           StandingAssists()
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        tooltip: '跳转手搜',
-        onPressed: () {
-          Navigator.of(context).push(new PageRouteBuilder(pageBuilder:
-              (BuildContext context, Animation<double> animation,
-                  Animation<double> secondaryAnimation) {
-            return new WebView(url: 'https://m.sohu.com', title: '手搜首页');
-          }));
-        },
-        child: new Icon(Icons.add),
       ),
     );
   }

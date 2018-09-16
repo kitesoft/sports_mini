@@ -6,8 +6,8 @@ import './_helper/feed.dart';
 
 class FeedList extends StatefulWidget {
   FeedList({@required this.api, @required this.params});
-  final String api;
-  final Map params;
+  String api;
+  Map params;
   @override
   _FeedList createState() => new _FeedList();
 }
@@ -57,6 +57,7 @@ class _FeedList extends State<FeedList> {
 
   _initFeedList() async {
     var reqParam = new CombinedMapView([widget.params, feedReqParam]);
+    print(widget.api);
     Response res = await dio.get(widget.api, data: reqParam);
     var dataList = res.data != null ? res.data['data'] : [];
     setState(() {
