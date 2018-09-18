@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../components/webview/view.dart';
+import 'package:sports_mini/common/article/view.dart';
 
 class FeedItem extends StatelessWidget {
   FeedItem({@required this.feed});
@@ -7,12 +8,10 @@ class FeedItem extends StatelessWidget {
   
   //
   _openArticlePage(BuildContext context,  Map feed) {
-    final String prefix = 'https://m.sohu.com';
-    String artUrl = prefix + feed['link'];
     Navigator.of(context).push(new PageRouteBuilder(pageBuilder:
         (BuildContext context, Animation<double> animation,
             Animation<double> secondaryAnimation) {
-      return new WebView(url: artUrl, title: '手搜文章页');
+      return new ArticlePage(authorId: feed['authorId'], newsId: feed['id'],);
     }));
   }
 

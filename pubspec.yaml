@@ -12,11 +12,19 @@ dependencies:
   # https://github.com/peng8350/flutter_pulltorefresh
   intl: ^0.15.7
   flutter_redux: ^0.5.2
-
+  # share: ^0.5.3
+  flutter_html_view: 
+    git:
+      url: git@github.com:gxmzjxk/FlutterHtmlView.git
+  flutter_markdown: ^0.2.0
+  html2md: ^0.2.1
+  flutter_webview_plugin: 
+    git:
+      url: git@github.com:gxmzjxk/flutter_webview_plugin.git
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_webview_plugin: ^0.2.1
+  
 
 
 # For information on the generic Dart part of this file, see the
@@ -34,6 +42,7 @@ flutter:
   assets:
    - images/preload.png
    - images/stadium_bg.png
+   - images/sohuhao.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
