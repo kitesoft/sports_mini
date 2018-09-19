@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage>
       body: TabBarView(
         controller: tabController,
         children: [
-          HomeNews(streamId: widget.league.feed['home']),
+          HomeNews(league: widget.league),
           MatchList(league: widget.league),
           StandingTeams(),
           StandingShooters(),

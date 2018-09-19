@@ -3,6 +3,8 @@ import 'package:flutter_html_view/flutter_html_view.dart';
 import 'package:dio/dio.dart';
 import 'package:sports_mini/common/loading.dart';
 import 'package:sports_mini/_utils/util.dart';
+//
+import './format.dart';
 
 class ArticlePage extends StatefulWidget {
   ArticlePage({
@@ -22,6 +24,7 @@ class _ArticlePageState extends State<ArticlePage> {
     final String reqUrl = 'https://d2.m.sohu.com/a/${widget.newsId}_${widget.authorId}.json';
     Response res = await dio.get(reqUrl, data: {});
     var dataList = res.data;
+    dataList['fulltext']['content'] = FormatUtil.formatContent(dataList['fulltext']['content']);
     setState(() {
       articleData = dataList;
     });

@@ -40,6 +40,7 @@ class MatchUtil {
 
   static formatGameList(List list, bool isLive, String type, League league) {
     List games;
+    String leagueName = league == null ? '' : league.name;
     if (list != null && list.length > 0) {
       games = list.map((game){
         game['hname'] = game['hTeamData'] == null ? '' : game['hTeamData']['teamName'];
@@ -47,9 +48,9 @@ class MatchUtil {
         game['vname'] = game['vTeamData'] == null ? '' : game['vTeamData']['teamName'];
         game['vflag'] = game['vTeamData'] == null ? '' : game['vTeamData']['flag'];
         if (game['gameOrder'] > 0) {
-          game['title'] = '${league.name}第${game["gameOrder"]}轮';
+          game['title'] = '$leagueName第${game["gameOrder"]}轮';
         } else {
-          game['title'] = '${league.name}${GAME_TYPE[game["gameType"]]}';
+          game['title'] = '$leagueName${GAME_TYPE[game["gameType"]]}';
         }
         if (isLive) {
           game['gameTimeShow'] = new Moment().formatTime(format: 'hh:mm');
