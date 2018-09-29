@@ -1,5 +1,5 @@
-import 'package:sports_mini/model/league.dart';
-import 'package:sports_mini/_utils/moment.dart';
+import 'package:sports_mini/common/model/league.dart';
+import '../../_utils/moment.dart';
 const Map GAME_TYPE = {
   -1: '资格赛',
   1: '小组赛',

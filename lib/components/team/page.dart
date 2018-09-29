@@ -31,12 +31,6 @@ class _TeamPageState extends State<TeamPage> {
     super.initState();
   }
 
-  @override
-  void didUpdateWidget(oldWidget) {
-    _getTeamData();
-    super.didUpdateWidget(oldWidget);
-  }
-
   Widget _buildPageBody(BuildContext context) {
     return Column(children: [
       Container(

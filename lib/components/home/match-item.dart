@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:sports_mini/common/base.dart';
+//
 import '../match/page.dart';
-import '../../constant.dart';
+
 
 class MatchItem extends StatelessWidget {
   MatchItem({@required this.match});

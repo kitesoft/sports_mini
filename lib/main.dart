@@ -1,10 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux/redux.dart';
-//
-import 'package:sports_mini/store/reducers.dart';
-import 'package:sports_mini/store/state.dart';
-//
+import 'package:sports_mini/common/base.dart';
+import './store/index.dart';
 import 'package:sports_mini/components/home/page.dart';
 
 void main() {
@@ -22,7 +17,10 @@ class MyApp extends StatelessWidget {
         store: store,
         child: new MaterialApp(
             title: '体育+',
-            theme: ThemeData(primarySwatch: Colors.blue),
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+              platform: TargetPlatform.iOS
+            ),
             home: new StoreConnector<AppState, AppState>(
               builder: (BuildContext context, AppState state) {
                 return new HomePage(title: state.curLeague.name, league: state.curLeague);

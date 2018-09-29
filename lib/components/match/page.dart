@@ -1,9 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
-import '../../common/tabs.dart';
+import 'package:sports_mini/common/base.dart';
+//
 import '../team/page.dart';
-import '../../constant.dart';
-import '../../common/loading.dart';
 
 class MatchPage extends StatefulWidget {
   MatchPage({Key key, @required this.leagueId, @required this.gameCode})
@@ -32,12 +29,6 @@ class _MatchPageState extends State<MatchPage> {
   void initState() {
     _getMatchData();
     super.initState();
-  }
-
-  @override
-  void didUpdateWidget(oldWidget) {
-    _getMatchData();
-    super.didUpdateWidget(oldWidget);
   }
 
   _buildStatusGradient(int status) {

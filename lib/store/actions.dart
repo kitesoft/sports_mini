@@ -1,4 +1,4 @@
-import 'package:sports_mini/model/league.dart';
+import 'package:sports_mini/common/model/league.dart';
 
 enum Actions { SetCurLeague, SetMatchInfo, SetTeamInfo }
 

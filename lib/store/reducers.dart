@@ -1,5 +1,5 @@
-import 'package:sports_mini/store/actions.dart';
-import 'package:sports_mini/store/state.dart';
+import './actions.dart';
+import './state.dart';
 
 AppState mainReducer(AppState state, dynamic action) {
   if (action is SetCurLeagueAction) {

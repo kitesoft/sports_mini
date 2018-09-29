@@ -1,12 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:sports_mini/common/base.dart';
+//
 import '../side-bar.dart';
 import './home-news.dart';
 import './match-list.dart';
 import './standing-teams.dart';
 import './standing-shooters.dart';
-import 'standing-assists.dart';
-//
-import 'package:sports_mini/model/league.dart';
+import './standing-assists.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title, this.league}) : super(key: key);
@@ -30,11 +29,6 @@ class _HomePageState extends State<HomePage>
       });
   }
 
-  @override
-  void didUpdateWidget(oldWidget) {
-    // _getFeedList();
-    super.didUpdateWidget(oldWidget);
-  }
 
   @override
   Widget build(BuildContext context) {

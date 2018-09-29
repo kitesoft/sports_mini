@@ -1,12 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux/redux.dart';
-//
-import 'package:sports_mini/model/league.dart';
-import 'package:sports_mini/store/state.dart';
-import 'package:sports_mini/store/actions.dart';
-//
-import '../store/data/leagues.dart';
+import 'package:sports_mini/common/base.dart';
+import '../store/index.dart';
 
 class SideBar extends StatefulWidget {
   SideBar({Key key}) : super(key: key);

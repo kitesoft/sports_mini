@@ -49,12 +49,6 @@ class _FeedList extends State<FeedList> {
     super.dispose();
   }
 
-  @override
-  void didUpdateWidget(oldWidget) {
-    _initFeedList();
-    super.didUpdateWidget(oldWidget);
-  }
-
   _initFeedList() async {
     var reqParam = new CombinedMapView([widget.params, feedReqParam]);
     Response res = await dio.get(widget.api, data: reqParam);

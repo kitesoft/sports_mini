@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
+import 'package:sports_mini/common/base.dart';
+//
 import '../_helper/match.dart';
-import 'package:sports_mini/model/league.dart';
 
 class LiveSchedule extends StatefulWidget {
   LiveSchedule({Key key, this.league}) : super(key: key);
@@ -43,12 +42,6 @@ class _LiveSchedule extends State<LiveSchedule> {
   void initState() {
     _getScheduleData();
     super.initState();
-  }
-
-  @override
-  void didUpdateWidget(oldWidget) {
-    _getScheduleData();
-    super.didUpdateWidget(oldWidget);
   }
 
   Container _buildItem(item) {

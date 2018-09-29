@@ -1,11 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
-import '../../common/loading.dart';
+import 'package:sports_mini/common/base.dart';
+//
 import './match-item.dart';
 import '../_helper/match.dart';
 import '../../_utils/moment.dart';
-import 'package:sports_mini/model/league.dart';
-import 'package:sports_mini/common/jscroll.dart';
 
 class MatchList extends StatefulWidget {
   MatchList({Key key, this.league}) : super(key: key);
@@ -24,12 +21,6 @@ class _MatchListState extends State<MatchList> {
   void initState() {
     _initMatchData();
     super.initState();
-  }
-
-  @override
-  void didUpdateWidget(oldWidget) {
-    _initMatchData();
-    super.didUpdateWidget(oldWidget);
   }
 
   _preFormat(List list, int ignoreTime) {

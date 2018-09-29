@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
-import '../../common/loading.dart';
+import 'package:sports_mini/common/base.dart';
 
 class StandingTeams extends StatefulWidget {
   @override
@@ -26,12 +24,6 @@ class _StandingTeamsState extends State<StandingTeams> {
   void initState() {
     _getTeamsData();
     super.initState();
-  }
-
-  @override
-  void didUpdateWidget(oldWidget) {
-    _getTeamsData();
-    super.didUpdateWidget(oldWidget);
   }
 
   Container _buildTitleSection() {
@@ -151,10 +143,11 @@ class _StandingTeamsState extends State<StandingTeams> {
   @override
   Widget build(BuildContext context) {
     var formatList = _getTeamItem();
+    Widget teams;
     if (formatList.length == 0) {
-      return BaseLoading();
+      teams = BaseLoading();
     } else {
-      return ListView.builder(
+      teams = ListView.builder(
         itemCount: formatList.length + 1,
         itemBuilder: (context, index) {
           if (index == 0) {
@@ -165,5 +158,9 @@ class _StandingTeamsState extends State<StandingTeams> {
         },
       );
     }
+    return JScroll(
+      child: teams,
+      pull: _getTeamsData
+    );
   }
 }

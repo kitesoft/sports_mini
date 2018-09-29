@@ -34,11 +34,7 @@ class _ArticlePageState extends State<ArticlePage> {
     _getArticleDetail();
     super.initState();
   }
-  @override
-  void didUpdateWidget(oldWidget) {
-    _getArticleDetail();
-    super.didUpdateWidget(oldWidget);
-  }
+  
   // 标题
   Widget _buildTitle(String title) {
     return Container(
