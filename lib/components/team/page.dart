@@ -6,8 +6,8 @@ class TeamPage extends StatefulWidget {
   TeamPage({Key key, @required this.leagueId, @required this.teamId})
       : super(key: key);
 
-  final int leagueId;
-  final int teamId;
+  final String leagueId;
+  final String teamId;
   @override
   _TeamPageState createState() => _TeamPageState();
 }
@@ -29,12 +29,6 @@ class _TeamPageState extends State<TeamPage> {
   void initState() {
     _getTeamData();
     super.initState();
-  }
-
-  @override
-  void didUpdateWidget(oldWidget) {
-    _getTeamData();
-    super.didUpdateWidget(oldWidget);
   }
 
   Widget _buildPageBody(BuildContext context) {

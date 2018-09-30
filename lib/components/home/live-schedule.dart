@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
+import 'package:sports_mini/common/base.dart';
+//
 import '../_helper/match.dart';
 
 class LiveSchedule extends StatefulWidget {
-  LiveSchedule({Key key}) : super(key: key);
-
+  LiveSchedule({Key key, this.league}) : super(key: key);
+  final League league;
   @override
   _LiveSchedule createState() => new _LiveSchedule();
 }
@@ -15,10 +15,14 @@ class _LiveSchedule extends State<LiveSchedule> {
 
   _getScheduleData() async {
     List codes = [], games = [];
+    String leagueId = widget.league.id;
     final hotGameUrl = 'https://v2.sohu.com/sports-api/v2/matches/list/hot';
-    final gameListUrl = 'https://v2.sohu.com/sports-data/football/17/game-list';
-    Response preRes = await dio.get(hotGameUrl,
-        data: {'leagueId': '17', 'time': DateTime.now().millisecondsSinceEpoch});
+    final gameListUrl =
+        'https://v2.sohu.com/sports-data/football/$leagueId/game-list';
+    Response preRes = await dio.get(hotGameUrl, data: {
+      'leagueId': leagueId,
+      'time': DateTime.now().millisecondsSinceEpoch
+    });
     var result = preRes.data;
     if (result != null && result['code'] == 0) {
       codes = result['data'];
@@ -38,12 +42,6 @@ class _LiveSchedule extends State<LiveSchedule> {
   void initState() {
     _getScheduleData();
     super.initState();
-  }
-
-  @override
-  void didUpdateWidget(oldWidget) {
-    _getScheduleData();
-    super.didUpdateWidget(oldWidget);
   }
 
   Container _buildItem(item) {
@@ -124,25 +122,23 @@ class _LiveSchedule extends State<LiveSchedule> {
 
   @override
   Widget build(BuildContext context) {
-    List renderList = MatchUtil.formatGameList(matchList, false, 'football');
-    // TODO: implement build
-    return new Flexible(
-      child: Container(
-        height: 79.0,
-        padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0),
-        decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(width: 5.0, color: Colors.grey))),
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: renderList == null ? 0 : renderList.length + 1,
-          itemBuilder: (context, index) {
-            if (index == renderList.length) {
-              return _buildMoreBtn();
-            } else {
-              return _buildItem(renderList[index]);
-            }
-          },
-        ),
+    List renderList =
+        MatchUtil.formatGameList(matchList, false, 'football', widget.league);
+    return Container(
+      height: 79.0,
+      padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0),
+      decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(width: 5.0, color: Colors.grey))),
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: renderList == null ? 0 : renderList.length + 1,
+        itemBuilder: (context, index) {
+          if (index == renderList.length) {
+            return _buildMoreBtn();
+          } else {
+            return _buildItem(renderList[index]);
+          }
+        },
       ),
     );
   }

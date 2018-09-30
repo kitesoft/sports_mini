@@ -1,3 +1,4 @@
+import './model/league.dart';
 const Map GAME_STATUS_TYPE = {
   '-2': 'end',
   '-1': 'pre',
@@ -7,8 +8,7 @@ const Map GAME_STATUS_TYPE = {
   '3': 'end',
   '4': 'end'
 };
-
-const Map DEFAULT_LEAGUE = {
+final Map _initMapLeague = {
   'id': 17,
   'name': '英超',
   'mini': 'yc',
@@ -53,3 +53,5 @@ const Map DEFAULT_LEAGUE = {
   ],
   'keywords': '英超,曼联,曼城,利物浦,阿森纳,切尔西,热刺'
 };
+
+final League initLeague = League.fromJson(_initMapLeague);

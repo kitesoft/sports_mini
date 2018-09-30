@@ -9,7 +9,8 @@ Flutter 中文网：https://flutterchina.club/
 # wiki
 http://confluence.sohuno.com/display/SOHUMP/Flutter
 
-# 其他
+# 注意事项
+1. Type 不正确的错误，可能需要删除APP后重新安装
 
 
 ## 论坛

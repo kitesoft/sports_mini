@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../components/webview/view.dart';
+import 'package:sports_mini/common/article/view.dart';
 
 class FeedItem extends StatelessWidget {
   FeedItem({@required this.feed});
@@ -7,12 +8,10 @@ class FeedItem extends StatelessWidget {
   
   //
   _openArticlePage(BuildContext context,  Map feed) {
-    final String prefix = 'https://m.sohu.com';
-    String artUrl = prefix + feed['link'];
     Navigator.of(context).push(new PageRouteBuilder(pageBuilder:
         (BuildContext context, Animation<double> animation,
             Animation<double> secondaryAnimation) {
-      return new WebView(url: artUrl, title: '手搜文章页');
+      return new ArticlePage(authorId: feed['authorId'], newsId: feed['id'],);
     }));
   }
 
@@ -30,10 +29,11 @@ class FeedItem extends StatelessWidget {
     if (showType == 1) {
       // 纯文本
       resComp = Container(
-        padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 0.0),
+        padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 15.0),
         decoration: BoxDecoration(
             border: Border(bottom: BorderSide(width: 1.0, color: Colors.grey))),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
                 margin: EdgeInsetsDirectional.only(bottom: 7.5),
@@ -68,7 +68,7 @@ class FeedItem extends StatelessWidget {
     } else if (showType == 2 || showType == 3) {
       // 图文混排
       resComp = Container(
-          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0),
+          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
           decoration: BoxDecoration(
               border:
                   Border(bottom: BorderSide(width: 1.0, color: Colors.grey))),
@@ -78,6 +78,7 @@ class FeedItem extends StatelessWidget {
                 child: Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
                           margin: EdgeInsetsDirectional.only(bottom: 15.0),
@@ -123,7 +124,7 @@ class FeedItem extends StatelessWidget {
     } else if (showType == 5) {
       // 视频
       resComp = Container(
-        padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 0.0),
+        padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 15.0),
         decoration: BoxDecoration(
             border: Border(bottom: BorderSide(width: 1.0, color: Colors.grey))),
         child: Column(

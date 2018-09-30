@@ -1,8 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
-import '../../common/loading.dart';
+import 'package:sports_mini/common/base.dart';
 
 class StandingTeams extends StatefulWidget {
+  StandingTeams({
+    @required this.league
+  });
+  final League league;
   @override
   _StandingTeamsState createState() => _StandingTeamsState();
 }
@@ -13,10 +15,11 @@ class _StandingTeamsState extends State<StandingTeams> {
   Dio dio = new Dio();
 
   _getTeamsData() async {
-    final url = 'https://v2.sohu.com/sports-data/football/17/standings/teams';
+    final leagueId = widget.league.id;
+    if (leagueId == null || !mounted) return;
+    final url = 'https://v2.sohu.com/sports-data/football/$leagueId/standings/teams';
     Response res = await dio.get(url, data: {});
     List dataList = res.data != null ? res.data['default'] : [];
-    if (!mounted) return;
     setState(() {
       teamList = dataList;
     });
@@ -26,12 +29,6 @@ class _StandingTeamsState extends State<StandingTeams> {
   void initState() {
     _getTeamsData();
     super.initState();
-  }
-
-  @override
-  void didUpdateWidget(oldWidget) {
-    _getTeamsData();
-    super.didUpdateWidget(oldWidget);
   }
 
   Container _buildTitleSection() {
@@ -151,10 +148,11 @@ class _StandingTeamsState extends State<StandingTeams> {
   @override
   Widget build(BuildContext context) {
     var formatList = _getTeamItem();
+    Widget teams;
     if (formatList.length == 0) {
-      return BaseLoading();
+      teams = BaseLoading();
     } else {
-      return ListView.builder(
+      teams = ListView.builder(
         itemCount: formatList.length + 1,
         itemBuilder: (context, index) {
           if (index == 0) {
@@ -165,5 +163,9 @@ class _StandingTeamsState extends State<StandingTeams> {
         },
       );
     }
+    return JScroll(
+      child: teams,
+      pull: _getTeamsData
+    );
   }
 }

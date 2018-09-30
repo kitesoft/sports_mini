@@ -49,12 +49,6 @@ class _FeedList extends State<FeedList> {
     super.dispose();
   }
 
-  @override
-  void didUpdateWidget(oldWidget) {
-    _initFeedList();
-    super.didUpdateWidget(oldWidget);
-  }
-
   _initFeedList() async {
     var reqParam = new CombinedMapView([widget.params, feedReqParam]);
     Response res = await dio.get(widget.api, data: reqParam);
@@ -99,19 +93,28 @@ class _FeedList extends State<FeedList> {
                 allLoaded ? Text('暂时没有更多内容了……') : CircularProgressIndicator()));
   }
 
+  List _buildItems() {
+    return feedList.map((item) {
+      return new FeedItem(feed: item);
+    }).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: EdgeInsets.symmetric(horizontal: 15.0),
-      itemCount: feedList == null ? 0 : feedList.length + 1,
-      itemBuilder: (context, index) {
-        if (index == feedList.length) {
-          return _buildProgressIndicator();
-        } else {
-          return FeedItem(feed: feedList[index]);
-        }
-      },
-      controller: _scrollController,
+    // return ListView.builder(
+    //   padding: EdgeInsets.symmetric(horizontal: 15.0),
+    //   itemCount: feedList == null ? 0 : feedList.length + 1,
+    //   itemBuilder: (context, index) {
+    //     if (index == feedList.length) {
+    //       return _buildProgressIndicator();
+    //     } else {
+    //       return FeedItem(feed: feedList[index]);
+    //     }
+    //   },
+    //   controller: _scrollController,
+    // );
+    return Column(
+      children: _buildItems(),
     );
   }
 }

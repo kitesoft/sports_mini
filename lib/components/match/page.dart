@@ -1,16 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
-import '../../common/tabs.dart';
+import 'package:sports_mini/common/base.dart';
+//
 import '../team/page.dart';
-import '../../constant.dart';
-import '../../common/loading.dart';
 
 class MatchPage extends StatefulWidget {
   MatchPage({Key key, @required this.leagueId, @required this.gameCode})
       : super(key: key);
 
-  final int leagueId;
-  final int gameCode;
+  final String leagueId;
+  final String gameCode;
   @override
   _MatchPageState createState() => _MatchPageState();
 }
@@ -32,12 +29,6 @@ class _MatchPageState extends State<MatchPage> {
   void initState() {
     _getMatchData();
     super.initState();
-  }
-
-  @override
-  void didUpdateWidget(oldWidget) {
-    _getMatchData();
-    super.didUpdateWidget(oldWidget);
   }
 
   _buildStatusGradient(int status) {
@@ -98,7 +89,7 @@ class _MatchPageState extends State<MatchPage> {
                   flex: 3,
                   child: InkWell(
                     onTap: () {
-                      int leagueId = DEFAULT_LEAGUE['id'];
+                      String leagueId = initLeague.id;
                       Navigator.of(context).push(new PageRouteBuilder(
                           pageBuilder: (BuildContext context,
                               Animation<double> animation,
@@ -160,7 +151,7 @@ class _MatchPageState extends State<MatchPage> {
                   flex: 3,
                   child: InkWell(
                     onTap: () {
-                      int leagueId = DEFAULT_LEAGUE['id'];
+                      String leagueId = initLeague.id;
                       Navigator.of(context).push(new PageRouteBuilder(
                           pageBuilder: (BuildContext context,
                               Animation<double> animation,
