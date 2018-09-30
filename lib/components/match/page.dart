@@ -89,13 +89,12 @@ class _MatchPageState extends State<MatchPage> {
                   flex: 3,
                   child: InkWell(
                     onTap: () {
-                      String leagueId = initLeague.id;
                       Navigator.of(context).push(new PageRouteBuilder(
                           pageBuilder: (BuildContext context,
                               Animation<double> animation,
                               Animation<double> secondaryAnimation) {
                         return new TeamPage(
-                            leagueId: leagueId, teamId: matchData['hTeamId']);
+                            leagueId: widget.leagueId, teamId: matchData['hTeamId']);
                       }));
                     },
                     child: Column(
@@ -151,13 +150,12 @@ class _MatchPageState extends State<MatchPage> {
                   flex: 3,
                   child: InkWell(
                     onTap: () {
-                      String leagueId = initLeague.id;
                       Navigator.of(context).push(new PageRouteBuilder(
                           pageBuilder: (BuildContext context,
                               Animation<double> animation,
                               Animation<double> secondaryAnimation) {
                         return new TeamPage(
-                            leagueId: leagueId, teamId: matchData['vTeamId']);
+                            leagueId: widget.leagueId, teamId: matchData['vTeamId']);
                       }));
                     },
                     child: Column(

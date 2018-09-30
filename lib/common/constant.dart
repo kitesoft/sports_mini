@@ -1,4 +1,3 @@
-import './model/league.dart';
 const Map GAME_STATUS_TYPE = {
   '-2': 'end',
   '-1': 'pre',
@@ -8,15 +7,15 @@ const Map GAME_STATUS_TYPE = {
   '3': 'end',
   '4': 'end'
 };
-final Map _initMapLeague = {
-  'id': 17,
+const Map initLeagueMap = {
+  'id': '17',
   'name': '英超',
   'mini': 'yc',
   'icon': '//statics.itc.cn/football/leagueicon/17.png',
   'feed': {
-    'home': 15,
-    'match': 52,
-    'team': 53,
+    'home': '15',
+    'match': '52',
+    'team': '53',
   },
   'ext': '',
   'hotTeams': [
@@ -53,5 +52,3 @@ final Map _initMapLeague = {
   ],
   'keywords': '英超,曼联,曼城,利物浦,阿森纳,切尔西,热刺'
 };
-
-final League initLeague = League.fromJson(_initMapLeague);

@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import '../components/webview/view.dart';
-import 'package:sports_mini/common/article/view.dart';
+import 'package:sports_mini/common/base.dart';
 
 class FeedItem extends StatelessWidget {
   FeedItem({@required this.feed});

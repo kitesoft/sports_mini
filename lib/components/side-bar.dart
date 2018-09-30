@@ -1,5 +1,5 @@
 import 'package:sports_mini/common/base.dart';
-import 'package:sports_mini/store/index.dart';
+import './home/page.dart';
 
 class SideBar extends StatefulWidget {
   SideBar({Key key}) : super(key: key);
@@ -16,81 +16,90 @@ class SideBar extends StatefulWidget {
 }
 
 class _SideBar extends State<SideBar> {
+  String str = '';
   List menuList = [
     {
-      "icon": "//statics.itc.cn/football/leagueicon/sports.png",
+      "icon": "https://statics.itc.cn/football/leagueicon/sports.png",
       "name": "体育首页",
-      "link": "//m.sohu.com/c/3/"
+      "link": "web-https://m.sohu.com/c/3/"
     },
     {
-      "icon": "//statics.itc.cn/sports/basketball/NBA.png",
+      "icon": "https://statics.itc.cn/sports/basketball/NBA.png",
       "name": "NBA",
-      "link": "/z/nba/home"
+      "link": "native-nba-home"
     },
     {
-      "icon": "//statics.itc.cn/sports/basketball/CBA.png",
+      "icon": "https://statics.itc.cn/sports/basketball/CBA.png",
       "name": "CBA",
-      "link": "/z/cba/home"
+      "link": "native-cba-home"
     },
     {
-      "icon": "//statics.itc.cn/football/leagueicon/17.png",
+      "icon": "https://statics.itc.cn/football/leagueicon/17.png",
       "name": "中超",
       "link": ""
     },
     {
-      "icon": "//statics.itc.cn/football/leagueicon/17.png",
+      "icon": "https://statics.itc.cn/football/leagueicon/17.png",
       "name": "亚冠",
       "link": ""
     },
     {
-      "icon": "//statics.itc.cn/football/leagueicon/17.png",
+      "icon": "https://statics.itc.cn/football/leagueicon/17.png",
       "name": "中甲",
       "link": ""
     },
     {
-      "icon": "//statics.itc.cn/football/leagueicon/17.png",
+      "icon": "https://statics.itc.cn/football/leagueicon/17.png",
       "name": "英超",
-      "link": "/z/football/17"
+      "link": "native-football-17",
+      "leagueId": '17'
     },
     {
-      "icon": "//statics.itc.cn/football/leagueicon/8.png",
+      "icon": "https://statics.itc.cn/football/leagueicon/8.png",
       "name": "西甲",
-      "link": "/z/football/8"
+      "link": "native-football-8",
+      "leagueId": '8'
     },
     {
-      "icon": "//statics.itc.cn/football/leagueicon/23.png",
+      "icon": "https://statics.itc.cn/football/leagueicon/23.png",
       "name": "意甲",
-      "link": "/z/football/23"
+      "link": "native-football-23",
+      "leagueId": '23'
     },
     {
-      "icon": "//statics.itc.cn/football/leagueicon/35.png",
+      "icon": "https://statics.itc.cn/football/leagueicon/35.png",
       "name": "德甲",
-      "link": "/z/football/35"
+      "link": "native-football-35",
+      "leagueId": '35'
     },
     {
-      "icon": "//statics.itc.cn/football/leagueicon/34.png",
+      "icon": "https://statics.itc.cn/football/leagueicon/34.png",
       "name": "法甲",
-      "link": "/z/football/34"
+      "link": "native-football-34",
+      "leagueId": '34'
     },
     {
-      "icon": "//statics.itc.cn/football/leagueicon/7.png",
+      "icon": "https://statics.itc.cn/football/leagueicon/7.png",
       "name": "欧冠",
-      "link": "/z/football/7"
+      "link": "native-football-7",
+      "leagueId": '7'
     },
     {
-      "icon": "//statics.itc.cn/football/leagueicon/679.png",
+      "icon": "https://statics.itc.cn/football/leagueicon/679.png",
       "name": "欧联",
-      "link": "/z/football/679"
+      "link": "native-football-679",
+      "leagueId": '679'
     },
     {
-      "icon": "//statics.itc.cn/football/leagueicon/1.png",
+      "icon": "https://statics.itc.cn/football/leagueicon/1.png",
       "name": "欧美男足",
-      "link": "/z/football/1"
+      "link": "native-football-1",
+      "leagueId": '1'
     },
     {
-      "icon": "//statics.itc.cn/esports/icon/esports.png",
+      "icon": "https://statics.itc.cn/esports/icon/esports.png",
       "name": "电竞",
-      "link": "/z/e_sport/home"
+      "link": "native-e_sport-home"
     }
   ];
 
@@ -109,19 +118,27 @@ class _SideBar extends State<SideBar> {
         ));
   }
 
-  StoreConnector _genTabBar(context, item) {
-    return new StoreConnector<AppState, VoidCallback>(
-      builder: (BuildContext context, VoidCallback calback) {
-        return new InkWell(onTap: calback, child: _genItemWidget(item));
-      },
-      converter: (Store<AppState> store) {
-        return () {
-          store.dispatch(new SetCurLeagueAction(
-              league: League.fromJson(leagueList[item['leagueId']])));
-          Navigator.pop(context);
-        };
-      },
-    );
+  _openHomePage(BuildContext context,  Map tab) {
+    String leagueId = tab['leagueId'];
+    League _league;
+    if (leagueId != null || leagueList[leagueId] != null) {
+      _league = League.fromJson(leagueList[leagueId]);
+    } else {
+      //
+      Navigator.pop(context);
+      return;
+    }
+    Navigator.of(context).push(new PageRouteBuilder(pageBuilder:
+        (BuildContext context, Animation<double> animation,
+            Animation<double> secondaryAnimation) {
+      return new HomePage(title: _league.name, league: _league,);
+    }));
+  }
+
+  Widget _genTabBar(context, item) {
+    return InkWell(onTap: () {
+      _openHomePage(context, item);
+    }, child: _genItemWidget(item));
   }
 
   @override
@@ -131,9 +148,11 @@ class _SideBar extends State<SideBar> {
         return new Container(child: _genTabBar(context, item));
       }).toList();
     }
-
-    return ListView(
-      children: _getItem(),
-    );
+    
+    return new GridView.count(
+        primary: false,
+        crossAxisSpacing: 5.0,
+        crossAxisCount: 2,
+        children: _getItem());
   }
 }

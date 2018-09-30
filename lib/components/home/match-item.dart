@@ -4,13 +4,13 @@ import '../match/page.dart';
 
 
 class MatchItem extends StatelessWidget {
-  MatchItem({@required this.match});
+  MatchItem({@required this.match, this.leagueId});
   final Map match;
+  final String leagueId;
   // 生成 Item Widget
   Widget _buildItemWidget(BuildContext context, Map item) {
     return InkWell(
         onTap: () {
-          String leagueId = initLeague.id;
           Navigator.of(context).push(new PageRouteBuilder(pageBuilder:
               (BuildContext context, Animation<double> animation,
                   Animation<double> secondaryAnimation) {
