@@ -1,5 +1,5 @@
 import 'package:sports_mini/common/base.dart';
-import '../store/index.dart';
+import 'package:sports_mini/store/index.dart';
 
 class SideBar extends StatefulWidget {
   SideBar({Key key}) : super(key: key);

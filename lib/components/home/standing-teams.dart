@@ -1,6 +1,10 @@
 import 'package:sports_mini/common/base.dart';
 
 class StandingTeams extends StatefulWidget {
+  StandingTeams({
+    @required this.league
+  });
+  final League league;
   @override
   _StandingTeamsState createState() => _StandingTeamsState();
 }
@@ -11,10 +15,11 @@ class _StandingTeamsState extends State<StandingTeams> {
   Dio dio = new Dio();
 
   _getTeamsData() async {
-    final url = 'https://v2.sohu.com/sports-data/football/17/standings/teams';
+    final leagueId = widget.league.id;
+    if (leagueId == null || !mounted) return;
+    final url = 'https://v2.sohu.com/sports-data/football/$leagueId/standings/teams';
     Response res = await dio.get(url, data: {});
     List dataList = res.data != null ? res.data['default'] : [];
-    if (!mounted) return;
     setState(() {
       teamList = dataList;
     });

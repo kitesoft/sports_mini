@@ -1,5 +1,6 @@
 import 'package:sports_mini/common/base.dart';
-import './store/index.dart';
+//
+import 'package:sports_mini/store/index.dart';
 import 'package:sports_mini/components/home/page.dart';
 
 void main() {

@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage>
         children: [
           HomeNews(league: widget.league),
           MatchList(league: widget.league),
-          StandingTeams(),
+          StandingTeams(league: widget.league),
           StandingShooters(),
           StandingAssists()
         ],
