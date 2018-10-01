@@ -2,7 +2,8 @@ import 'package:sports_mini/common/base.dart';
 import './home/page.dart';
 
 class SideBar extends StatefulWidget {
-  SideBar({Key key}) : super(key: key);
+  SideBar({Key key, this.league}) : super(key: key);
+  final League league;
   // 方便开发的 border
   BoxDecoration devBorder() {
     return new BoxDecoration(
@@ -18,36 +19,6 @@ class SideBar extends StatefulWidget {
 class _SideBar extends State<SideBar> {
   String str = '';
   List menuList = [
-    {
-      "icon": "https://statics.itc.cn/football/leagueicon/sports.png",
-      "name": "体育首页",
-      "link": "web-https://m.sohu.com/c/3/"
-    },
-    {
-      "icon": "https://statics.itc.cn/sports/basketball/NBA.png",
-      "name": "NBA",
-      "link": "native-nba-home"
-    },
-    {
-      "icon": "https://statics.itc.cn/sports/basketball/CBA.png",
-      "name": "CBA",
-      "link": "native-cba-home"
-    },
-    {
-      "icon": "https://statics.itc.cn/football/leagueicon/17.png",
-      "name": "中超",
-      "link": ""
-    },
-    {
-      "icon": "https://statics.itc.cn/football/leagueicon/17.png",
-      "name": "亚冠",
-      "link": ""
-    },
-    {
-      "icon": "https://statics.itc.cn/football/leagueicon/17.png",
-      "name": "中甲",
-      "link": ""
-    },
     {
       "icon": "https://statics.itc.cn/football/leagueicon/17.png",
       "name": "英超",
@@ -95,11 +66,6 @@ class _SideBar extends State<SideBar> {
       "name": "欧美男足",
       "link": "native-football-1",
       "leagueId": '1'
-    },
-    {
-      "icon": "https://statics.itc.cn/esports/icon/esports.png",
-      "name": "电竞",
-      "link": "native-e_sport-home"
     }
   ];
 
@@ -118,41 +84,43 @@ class _SideBar extends State<SideBar> {
         ));
   }
 
-  _openHomePage(BuildContext context,  Map tab) {
-    String leagueId = tab['leagueId'];
+  _openHomePage(BuildContext context, Map tab) {
+    int leagueId = tab['leagueId'];
     League _league;
+    Navigator.pop(context);
     if (leagueId != null || leagueList[leagueId] != null) {
       _league = League.fromJson(leagueList[leagueId]);
     } else {
-      //
-      Navigator.pop(context);
       return;
     }
     Navigator.of(context).push(new PageRouteBuilder(pageBuilder:
         (BuildContext context, Animation<double> animation,
             Animation<double> secondaryAnimation) {
-      return new HomePage(title: _league.name, league: _league,);
+      return new HomePage(
+        title: _league.name,
+        league: _league,
+      );
     }));
   }
 
   Widget _genTabBar(context, item) {
-    return InkWell(onTap: () {
-      _openHomePage(context, item);
-    }, child: _genItemWidget(item));
+    return InkWell(
+        onTap: () {
+          _openHomePage(context, item);
+        },
+        child: _genItemWidget(item));
   }
 
   @override
   Widget build(BuildContext context) {
     List<Widget> _getItem() {
       return menuList.map((item) {
-        return new Container(child: _genTabBar(context, item));
+        if (item['id'] != widget.league.id) {
+          return new Container(child: _genTabBar(context, item));
+        }
       }).toList();
     }
-    
-    return new GridView.count(
-        primary: false,
-        crossAxisSpacing: 5.0,
-        crossAxisCount: 2,
-        children: _getItem());
+
+    return ListView(children: _getItem());
   }
 }

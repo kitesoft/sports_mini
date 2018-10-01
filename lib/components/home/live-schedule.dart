@@ -15,7 +15,7 @@ class _LiveSchedule extends State<LiveSchedule> {
 
   _getScheduleData() async {
     List codes = [], games = [];
-    String leagueId = widget.league.id;
+    int leagueId = widget.league.id;
     final hotGameUrl = 'https://v2.sohu.com/sports-api/v2/matches/list/hot';
     final gameListUrl =
         'https://v2.sohu.com/sports-data/football/$leagueId/game-list';

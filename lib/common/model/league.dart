@@ -1,5 +1,5 @@
 class League {
-  String id;
+  int id;
   String name;
   Map feed;
   // Constructor

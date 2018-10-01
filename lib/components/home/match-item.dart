@@ -6,7 +6,7 @@ import '../match/page.dart';
 class MatchItem extends StatelessWidget {
   MatchItem({@required this.match, this.leagueId});
   final Map match;
-  final String leagueId;
+  final int leagueId;
   // 生成 Item Widget
   Widget _buildItemWidget(BuildContext context, Map item) {
     return InkWell(

@@ -1,6 +1,10 @@
 import 'package:sports_mini/common/base.dart';
 
 class StandingAssists extends StatefulWidget {
+  StandingAssists({
+    @required this.league
+  });
+  final League league;
   @override
   _StandingAssistsState createState() => _StandingAssistsState();
 }

@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
+import 'package:sports_mini/common/base.dart';
 import './feed-item.dart';
 import 'package:collection/collection.dart';
 import './_helper/feed.dart';
@@ -24,7 +23,8 @@ class _FeedList extends State<FeedList> {
     'mpId': '',
     'client': 1,
     'requestId': '1533292365296o3ogyy_1533987330763',
-    'pvId': '15339873307630sc2cpc'
+    'pvId': '15339873307630sc2cpc',
+    'sessionId': ''
   };
   // 组件 data2render 参数
   List feedList = [];
@@ -53,6 +53,7 @@ class _FeedList extends State<FeedList> {
     var reqParam = new CombinedMapView([widget.params, feedReqParam]);
     Response res = await dio.get(widget.api, data: reqParam);
     var dataList = res.data != null ? res.data['data'] : [];
+    // print('拉取数据：' + dataList.length.toString());
     setState(() {
       feedList = FeedUtil.formatFeedList(dataList);
       loading = false;
@@ -113,8 +114,22 @@ class _FeedList extends State<FeedList> {
     //   },
     //   controller: _scrollController,
     // );
-    return Column(
-      children: _buildItems(),
+    // return Column(
+    //   children: _buildItems(),
+    // );
+    return JScroll(
+      pull: _initFeedList,
+      child: ListView.builder(
+        itemCount: feedList == null ? 0 : feedList.length + 1,
+        itemBuilder: (context, index) {
+          if (index == feedList.length) {
+            return _buildProgressIndicator();
+          } else {
+            return FeedItem(feed: feedList[index]);
+          }
+        },
+        controller: _scrollController,
+      ),
     );
   }
 }

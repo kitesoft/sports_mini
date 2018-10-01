@@ -9,7 +9,7 @@ class FeedItem extends StatelessWidget {
     Navigator.of(context).push(new PageRouteBuilder(pageBuilder:
         (BuildContext context, Animation<double> animation,
             Animation<double> secondaryAnimation) {
-      return new ArticlePage(authorId: feed['authorId'], newsId: feed['id'],);
+      return new ArticlePage(authorId: feed['authorId'], newsId: feed['id'], title: feed['authorName'],);
     }));
   }
 

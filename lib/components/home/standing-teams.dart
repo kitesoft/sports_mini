@@ -1,9 +1,8 @@
 import 'package:sports_mini/common/base.dart';
+import '../team/page.dart';
 
 class StandingTeams extends StatefulWidget {
-  StandingTeams({
-    @required this.league
-  });
+  StandingTeams({@required this.league});
   final League league;
   @override
   _StandingTeamsState createState() => _StandingTeamsState();
@@ -17,7 +16,8 @@ class _StandingTeamsState extends State<StandingTeams> {
   _getTeamsData() async {
     final leagueId = widget.league.id;
     if (leagueId == null || !mounted) return;
-    final url = 'https://v2.sohu.com/sports-data/football/$leagueId/standings/teams';
+    final url =
+        'https://v2.sohu.com/sports-data/football/$leagueId/standings/teams';
     Response res = await dio.get(url, data: {});
     List dataList = res.data != null ? res.data['default'] : [];
     setState(() {
@@ -67,63 +67,79 @@ class _StandingTeamsState extends State<StandingTeams> {
         ));
   }
 
-  Container _getItemWidget(item) {
-    return Container(
-        height: 50.0,
-        padding: EdgeInsets.symmetric(horizontal: 15.0),
-        color: item['bg'],
-        child: Row(
-          children: [
-            Expanded(
-                flex: 4,
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: 18.0,
-                      child: Text(item['rank'], textAlign: TextAlign.center),
+  _openTeamPage(context, item) {
+    Navigator.of(context).push(new PageRouteBuilder(pageBuilder:
+        (BuildContext context, Animation<double> animation,
+            Animation<double> secondaryAnimation) {
+      return new TeamPage(
+        leagueId: 0,
+        teamId: item['teamInfo']['teamId'],
+      );
+    }));
+  }
+
+  Widget _getItemWidget(item) {
+    return InkWell(
+        onTap: () {
+          this._openTeamPage(context, item);
+        },
+        child: Container(
+            height: 50.0,
+            padding: EdgeInsets.symmetric(horizontal: 15.0),
+            color: item['bg'],
+            child: Row(
+              children: [
+                Expanded(
+                    flex: 4,
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          width: 18.0,
+                          child:
+                              Text(item['rank'], textAlign: TextAlign.center),
+                        ),
+                        Container(
+                          width: 13.0,
+                          height: 13.0,
+                          margin: EdgeInsets.symmetric(horizontal: 5.0),
+                          child: FadeInImage.assetNetwork(
+                            placeholder: 'images/preload.png',
+                            image: item['teamInfo']['flag'],
+                          ),
+                        ),
+                        Container(
+                            width: 6 * 12.0,
+                            padding: EdgeInsets.only(left: 2.0),
+                            child: Text(
+                              item['teamInfo']['teamName'],
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                            ))
+                      ],
+                    )),
+                Expanded(
+                  flex: 6,
+                  child: Row(children: [
+                    Expanded(
+                      flex: 18,
+                      child: Text('2', textAlign: TextAlign.center),
                     ),
-                    Container(
-                      width: 13.0,
-                      height: 13.0,
-                      margin: EdgeInsets.symmetric(horizontal: 5.0),
-                      child: FadeInImage.assetNetwork(
-                        placeholder: 'images/preload.png',
-                        image: item['teamInfo']['flag'],
-                      ),
+                    Expanded(
+                      flex: 33,
+                      child: Text('2/0/0', textAlign: TextAlign.center),
                     ),
-                    Container(
-                        width: 6 * 12.0,
-                        padding: EdgeInsets.only(left: 2.0),
-                        child: Text(
-                          item['teamInfo']['teamName'],
-                          softWrap: true,
-                          overflow: TextOverflow.ellipsis,
-                        ))
-                  ],
-                )),
-            Expanded(
-              flex: 6,
-              child: Row(children: [
-                Expanded(
-                  flex: 18,
-                  child: Text('2', textAlign: TextAlign.center),
-                ),
-                Expanded(
-                  flex: 33,
-                  child: Text('2/0/0', textAlign: TextAlign.center),
-                ),
-                Expanded(
-                  flex: 34,
-                  child: Text('8/7', textAlign: TextAlign.center),
-                ),
-                Expanded(
-                  flex: 15,
-                  child: Text('6', textAlign: TextAlign.center),
-                ),
-              ]),
-            )
-          ],
-        ));
+                    Expanded(
+                      flex: 34,
+                      child: Text('8/7', textAlign: TextAlign.center),
+                    ),
+                    Expanded(
+                      flex: 15,
+                      child: Text('6', textAlign: TextAlign.center),
+                    ),
+                  ]),
+                )
+              ],
+            )));
   }
 
   List _getTeamItem() {
@@ -163,9 +179,6 @@ class _StandingTeamsState extends State<StandingTeams> {
         },
       );
     }
-    return JScroll(
-      child: teams,
-      pull: _getTeamsData
-    );
+    return JScroll(child: teams, pull: _getTeamsData);
   }
 }

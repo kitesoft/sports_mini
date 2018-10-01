@@ -6,8 +6,8 @@ class TeamPage extends StatefulWidget {
   TeamPage({Key key, @required this.leagueId, @required this.teamId})
       : super(key: key);
 
-  final String leagueId;
-  final String teamId;
+  final int leagueId;
+  final int teamId;
   @override
   _TeamPageState createState() => _TeamPageState();
 }

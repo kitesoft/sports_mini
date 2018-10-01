@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage>
         ),
       ),
       endDrawer: new Drawer(
-        child: new SideBar(),
+        child: new SideBar(league: widget.league)
       ),
       body: TabBarView(
         controller: tabController,
@@ -64,8 +64,8 @@ class _HomePageState extends State<HomePage>
           HomeNews(league: widget.league),
           MatchList(league: widget.league),
           StandingTeams(league: widget.league),
-          StandingShooters(),
-          StandingAssists()
+          StandingShooters(league: widget.league),
+          StandingAssists(league: widget.league)
         ],
       ),
     );

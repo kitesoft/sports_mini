@@ -6,7 +6,7 @@ class MatchPage extends StatefulWidget {
   MatchPage({Key key, @required this.leagueId, @required this.gameCode})
       : super(key: key);
 
-  final String leagueId;
+  final int leagueId;
   final String gameCode;
   @override
   _MatchPageState createState() => _MatchPageState();

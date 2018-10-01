@@ -8,14 +8,14 @@ const Map GAME_STATUS_TYPE = {
   '4': 'end'
 };
 const Map initLeagueMap = {
-  'id': '17',
+  'id': 17,
   'name': '英超',
   'mini': 'yc',
   'icon': '//statics.itc.cn/football/leagueicon/17.png',
   'feed': {
-    'home': '15',
-    'match': '52',
-    'team': '53',
+    'home': 15,
+    'match': 52,
+    'team': 53,
   },
   'ext': '',
   'hotTeams': [
