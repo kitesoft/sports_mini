@@ -11,7 +11,7 @@ class MatchList extends StatefulWidget {
   _MatchListState createState() => _MatchListState();
 }
 
-class _MatchListState extends State<MatchList> {
+class _MatchListState extends State<MatchList> with AutomaticKeepAliveClientMixin {
   Dio dio = new Dio();
   List matchList;
   var firstTime;
@@ -22,6 +22,8 @@ class _MatchListState extends State<MatchList> {
     _initMatchData();
     super.initState();
   }
+  @override
+  bool get wantKeepAlive => true;
 
   _preFormat(List list, int ignoreTime) {
     return list.where((item) {

@@ -11,7 +11,7 @@ class FeedList extends StatefulWidget {
   _FeedList createState() => new _FeedList();
 }
 
-class _FeedList extends State<FeedList> {
+class _FeedList extends State<FeedList> with AutomaticKeepAliveClientMixin {
   // Component Lib 参数
   bool allLoaded = false;
   bool loading = false;
@@ -42,6 +42,8 @@ class _FeedList extends State<FeedList> {
       }
     });
   }
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void dispose() {

@@ -9,7 +9,7 @@ class StandingAssists extends StatefulWidget {
   _StandingAssistsState createState() => _StandingAssistsState();
 }
 
-class _StandingAssistsState extends State<StandingAssists> {
+class _StandingAssistsState extends State<StandingAssists> with AutomaticKeepAliveClientMixin{
   List playerList;
   Dio dio = new Dio();
 
@@ -28,6 +28,8 @@ class _StandingAssistsState extends State<StandingAssists> {
     _getPlayersData();
     super.initState();
   }
+  @override
+  bool get wantKeepAlive => true;
 
   Container _buildTitleSection() {
     return Container(
