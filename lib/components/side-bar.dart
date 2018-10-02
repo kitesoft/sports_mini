@@ -88,7 +88,7 @@ class _SideBar extends State<SideBar> {
     int leagueId = tab['leagueId'];
     League _league;
     Navigator.pop(context);
-    print(leagueList[leagueId].toString());
+    // print(leagueList[leagueId].toString());
     if (leagueId != null && leagueList[leagueId] != null) {
       _league = League.fromJson(leagueList[leagueId]);
     } else {

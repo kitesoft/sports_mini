@@ -53,7 +53,7 @@ class _FeedList extends State<FeedList> {
     var reqParam = new CombinedMapView([widget.params, feedReqParam]);
     Response res = await dio.get(widget.api, data: reqParam);
     var dataList = res.data != null ? res.data['data'] : [];
-    print('拉取数据：' + dataList.length.toString());
+    // print('拉取数据：' + dataList.length.toString());
     setState(() {
       feedList = FeedUtil.formatFeedList(dataList);
       loading = false;
