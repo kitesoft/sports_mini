@@ -30,6 +30,7 @@ class _StandingTeamsState extends State<StandingTeams> {
     _getTeamsData();
     super.initState();
   }
+  
 
   Container _buildTitleSection() {
     return Container(
@@ -72,13 +73,13 @@ class _StandingTeamsState extends State<StandingTeams> {
         (BuildContext context, Animation<double> animation,
             Animation<double> secondaryAnimation) {
       return new TeamPage(
-        leagueId: 0,
+        league: widget.league,
         teamId: item['teamInfo']['teamId'],
       );
     }));
   }
 
-  Widget _getItemWidget(item) {
+  Widget _getItemWidget(BuildContext context, Map item) {
     return InkWell(
         onTap: () {
           this._openTeamPage(context, item);
@@ -174,7 +175,7 @@ class _StandingTeamsState extends State<StandingTeams> {
           if (index == 0) {
             return _buildTitleSection();
           } else {
-            return _getItemWidget(formatList[index - 1]);
+            return _getItemWidget(context, formatList[index - 1]);
           }
         },
       );

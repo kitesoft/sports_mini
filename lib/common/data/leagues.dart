@@ -1,6 +1,7 @@
 import './hot-teams.dart';
-final Map leagueList = {
-  "1": {
+
+final Map<int, Map> leagueList = {
+  1: {
     "id": 1,
     "name": "欧美男足",
     "mini": "wzzq",
@@ -10,7 +11,7 @@ final Map leagueList = {
     "hotTeams": [],
     "keywords": ""
   },
-  "7": {
+  7: {
     "id": 7,
     "name": "欧冠",
     "mini": "og",
@@ -20,7 +21,7 @@ final Map leagueList = {
     "hotTeams": hotTeams['7'],
     "keywords": ""
   },
-  "8": {
+  8: {
     "id": 8,
     "name": "西甲",
     "mini": "xj",
@@ -30,7 +31,7 @@ final Map leagueList = {
     "hotTeams": hotTeams['8'],
     "keywords": "西甲,皇马,皇家马德里,巴萨罗那,巴萨,马竞,马德里竞技"
   },
-  "17": {
+  17: {
     "id": 17,
     "name": "英超",
     "mini": "yc",
@@ -40,7 +41,7 @@ final Map leagueList = {
     "hotTeams": hotTeams['17'],
     "keywords": "英超,曼联,曼城,利物浦,阿森纳,切尔西,热刺"
   },
-  "23": {
+  23: {
     "id": 23,
     "name": "意甲",
     "mini": "yj",
@@ -50,7 +51,7 @@ final Map leagueList = {
     "hotTeams": hotTeams['23'],
     "keywords": "意甲,尤文,国米,米兰,尤文图斯,国际米兰,AC米兰"
   },
-  "34": {
+  34: {
     "id": 34,
     "name": "法甲",
     "mini": "fj",
@@ -60,7 +61,7 @@ final Map leagueList = {
     "hotTeams": hotTeams['34'],
     "keywords": "法甲,巴黎,巴黎圣日耳曼"
   },
-  "35": {
+  35: {
     "id": 35,
     "name": "德甲",
     "mini": "dj",
@@ -70,7 +71,7 @@ final Map leagueList = {
     "hotTeams": hotTeams['35'],
     "keywords": "德甲,拜仁慕尼黑,拜仁"
   },
-  "679": {
+  679: {
     "id": 679,
     "name": "欧联",
     "mini": "ol",

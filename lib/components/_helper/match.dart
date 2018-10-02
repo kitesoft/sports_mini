@@ -1,5 +1,6 @@
 import 'package:sports_mini/common/model/league.dart';
 import '../../_utils/moment.dart';
+
 const Map GAME_TYPE = {
   -1: '资格赛',
   1: '小组赛',
@@ -29,7 +30,9 @@ class MatchUtil {
     if (list != null && list.length > 0) {
       formatList = list.map((item) {
         moment = new DateTime.fromMillisecondsSinceEpoch(item['dateTime']);
-        item['date'] = moment.month.toString().padLeft(2,'0') + '-' + moment.day.toString().padLeft(2, '0');
+        item['date'] = moment.month.toString().padLeft(2, '0') +
+            '-' +
+            moment.day.toString().padLeft(2, '0');
         item['week'] = '星期' + moment.weekday.toString();
         item['games'] = formatGameList(item['games'], false, null, league);
         return item;
@@ -42,11 +45,15 @@ class MatchUtil {
     List games;
     String leagueName = league == null ? '' : league.name;
     if (list != null && list.length > 0) {
-      games = list.map((game){
-        game['hname'] = game['hTeamData'] == null ? '' : game['hTeamData']['teamName'];
-        game['hflag'] = game['hTeamData'] == null ? '' : game['hTeamData']['flag'];
-        game['vname'] = game['vTeamData'] == null ? '' : game['vTeamData']['teamName'];
-        game['vflag'] = game['vTeamData'] == null ? '' : game['vTeamData']['flag'];
+      games = list.map((game) {
+        game['hname'] =
+            game['hTeamData'] == null ? '' : game['hTeamData']['teamName'];
+        game['hflag'] =
+            game['hTeamData'] == null ? '' : game['hTeamData']['flag'];
+        game['vname'] =
+            game['vTeamData'] == null ? '' : game['vTeamData']['teamName'];
+        game['vflag'] =
+            game['vTeamData'] == null ? '' : game['vTeamData']['flag'];
         if (game['gameOrder'] > 0) {
           game['title'] = '$leagueName第${game["gameOrder"]}轮';
         } else {
@@ -70,5 +77,38 @@ class MatchUtil {
       }).toList();
       return games;
     }
+  }
+
+  static formatMatchInfo(Map match, League league) {
+    if (match != null) {
+      match['hname'] =
+          match['hTeamData'] == null ? '' : match['hTeamData']['teamName'];
+      match['hflag'] =
+          match['hTeamData'] == null ? '' : match['hTeamData']['flag'];
+      match['vname'] =
+          match['vTeamData'] == null ? '' : match['vTeamData']['teamName'];
+      match['vflag'] =
+          match['vTeamData'] == null ? '' : match['vTeamData']['flag'];
+      if (match['gameOrder'] > 0) {
+        match['title'] = '${league.name}第${match["gameOrder"]}轮';
+      } else {
+        match['title'] = '${league.name}${GAME_TYPE[match["gameType"]]}';
+      }
+      String gameStatus = match['status'].toString();
+      if (gameStatus == '1' || gameStatus == '-1') {
+        match['progressShow'] = match['gameTimeShow'];
+      } else if (gameStatus == '0') {
+        match['progressShow'] = '-';
+      } else {
+        match['progressShow'] =
+            '${match["hTeamScore"]}-${match["vTeamScore"]}';
+      }
+      match['statusShow'] = GAME_STATUS[gameStatus];
+      //
+      match['target'] = match['hname'] + ',' + match['vname'];
+      match['showTitle'] = match['hname'] + 'vs' + match['vname'];
+    }
+
+    return match;
   }
 }

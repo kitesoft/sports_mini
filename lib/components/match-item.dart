@@ -1,12 +1,12 @@
 import 'package:sports_mini/common/base.dart';
 //
-import '../match/page.dart';
+import './match/page.dart';
 
 
 class MatchItem extends StatelessWidget {
-  MatchItem({@required this.match, this.leagueId});
+  MatchItem({@required this.match, this.league});
   final Map match;
-  final int leagueId;
+  final League league;
   // 生成 Item Widget
   Widget _buildItemWidget(BuildContext context, Map item) {
     return InkWell(
@@ -15,7 +15,7 @@ class MatchItem extends StatelessWidget {
               (BuildContext context, Animation<double> animation,
                   Animation<double> secondaryAnimation) {
             return new MatchPage(
-                leagueId: leagueId, gameCode: item['gameCode']);
+                league: league, gameCode: item['gameCode']);
           }));
         },
         child: Container(

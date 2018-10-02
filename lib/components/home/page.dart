@@ -2,7 +2,7 @@ import 'package:sports_mini/common/base.dart';
 //
 import '../side-bar.dart';
 import './home-news.dart';
-import './match-list.dart';
+import '../match-list.dart';
 import './standing-teams.dart';
 import './standing-shooters.dart';
 import './standing-assists.dart';

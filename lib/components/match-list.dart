@@ -1,8 +1,8 @@
 import 'package:sports_mini/common/base.dart';
 //
 import './match-item.dart';
-import '../_helper/match.dart';
-import '../../_utils/moment.dart';
+import './_helper/match.dart';
+import '../_utils/moment.dart';
 
 class MatchList extends StatefulWidget {
   MatchList({Key key, this.league}) : super(key: key);
@@ -104,7 +104,7 @@ class _MatchListState extends State<MatchList> {
           child: ListView.builder(
               itemCount: formatList.length,
               itemBuilder: (context, index) {
-                return MatchItem(match: formatList[index]);
+                return MatchItem(match: formatList[index], league: widget.league);
               }
             )
           );

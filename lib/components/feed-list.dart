@@ -29,13 +29,13 @@ class _FeedList extends State<FeedList> {
   // 组件 data2render 参数
   List feedList = [];
   Dio dio = new Dio();
-  ScrollController _scrollController = new ScrollController();
+  ScrollController _scrollController;
 
   @override
   void initState() {
     _initFeedList();
     super.initState();
-    _scrollController.addListener(() {
+    _scrollController = new ScrollController()..addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
         _getMoreData();
@@ -53,11 +53,16 @@ class _FeedList extends State<FeedList> {
     var reqParam = new CombinedMapView([widget.params, feedReqParam]);
     Response res = await dio.get(widget.api, data: reqParam);
     var dataList = res.data != null ? res.data['data'] : [];
-    // print('拉取数据：' + dataList.length.toString());
+    print('拉取数据：' + dataList.length.toString());
     setState(() {
       feedList = FeedUtil.formatFeedList(dataList);
       loading = false;
-      allLoaded = false;
+      if (feedList.length < 10) {
+        allLoaded = true;
+      } else {
+        allLoaded = false;
+      }
+      
     });
   }
 

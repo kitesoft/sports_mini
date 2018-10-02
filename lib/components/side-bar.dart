@@ -23,49 +23,49 @@ class _SideBar extends State<SideBar> {
       "icon": "https://statics.itc.cn/football/leagueicon/17.png",
       "name": "英超",
       "link": "native-football-17",
-      "leagueId": '17'
+      "leagueId": 17
     },
     {
       "icon": "https://statics.itc.cn/football/leagueicon/8.png",
       "name": "西甲",
       "link": "native-football-8",
-      "leagueId": '8'
+      "leagueId": 8
     },
     {
       "icon": "https://statics.itc.cn/football/leagueicon/23.png",
       "name": "意甲",
       "link": "native-football-23",
-      "leagueId": '23'
+      "leagueId": 23
     },
     {
       "icon": "https://statics.itc.cn/football/leagueicon/35.png",
       "name": "德甲",
       "link": "native-football-35",
-      "leagueId": '35'
+      "leagueId": 35
     },
     {
       "icon": "https://statics.itc.cn/football/leagueicon/34.png",
       "name": "法甲",
       "link": "native-football-34",
-      "leagueId": '34'
+      "leagueId": 34
     },
     {
       "icon": "https://statics.itc.cn/football/leagueicon/7.png",
       "name": "欧冠",
       "link": "native-football-7",
-      "leagueId": '7'
+      "leagueId": 7
     },
     {
       "icon": "https://statics.itc.cn/football/leagueicon/679.png",
       "name": "欧联",
       "link": "native-football-679",
-      "leagueId": '679'
+      "leagueId": 679
     },
     {
       "icon": "https://statics.itc.cn/football/leagueicon/1.png",
       "name": "欧美男足",
       "link": "native-football-1",
-      "leagueId": '1'
+      "leagueId": 1
     }
   ];
 
@@ -88,7 +88,8 @@ class _SideBar extends State<SideBar> {
     int leagueId = tab['leagueId'];
     League _league;
     Navigator.pop(context);
-    if (leagueId != null || leagueList[leagueId] != null) {
+    print(leagueList[leagueId].toString());
+    if (leagueId != null && leagueList[leagueId] != null) {
       _league = League.fromJson(leagueList[leagueId]);
     } else {
       return;
@@ -114,10 +115,9 @@ class _SideBar extends State<SideBar> {
   @override
   Widget build(BuildContext context) {
     List<Widget> _getItem() {
-      return menuList.map((item) {
-        if (item['id'] != widget.league.id) {
-          return new Container(child: _genTabBar(context, item));
-        }
+      List _pre = menuList.where((i) => i['id'] != widget.league.id).toList();
+      return _pre.map((item) {
+        return new Container(child: _genTabBar(context, item));
       }).toList();
     }
 
