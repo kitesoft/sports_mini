@@ -72,14 +72,13 @@ class _StandingTeamsState extends State<StandingTeams> with AutomaticKeepAliveCl
   }
 
   _openTeamPage(context, item) {
-    Navigator.of(context).push(new PageRouteBuilder(pageBuilder:
-        (BuildContext context, Animation<double> animation,
-            Animation<double> secondaryAnimation) {
-      return new TeamPage(
+    Navigator.push(
+      context,
+      new MaterialPageRoute(builder: (context) => new TeamPage(
         league: widget.league,
         teamId: item['teamInfo']['teamId'],
-      );
-    }));
+      )),
+    );
   }
 
   Widget _getItemWidget(BuildContext context, Map item) {

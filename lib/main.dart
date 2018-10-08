@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: '体育+',
         theme:
-            ThemeData(primarySwatch: Colors.blue, platform: TargetPlatform.iOS),
+            ThemeData(primarySwatch: Colors.blue),
         home: HomePage(title: _league.name, league: _league));
   }
 }

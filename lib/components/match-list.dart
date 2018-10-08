@@ -11,17 +11,35 @@ class MatchList extends StatefulWidget {
   _MatchListState createState() => _MatchListState();
 }
 
-class _MatchListState extends State<MatchList> with AutomaticKeepAliveClientMixin {
+class _MatchListState extends State<MatchList>
+    with AutomaticKeepAliveClientMixin {
   Dio dio = new Dio();
   List matchList;
   var firstTime;
   var lastTime;
+  bool allLoaded = false;
+  bool loading = false;
+  ScrollController _scrollController;
 
   @override
   void initState() {
     _initMatchData();
     super.initState();
+    _scrollController = new ScrollController()
+      ..addListener(() {
+        if (_scrollController.position.pixels ==
+            _scrollController.position.maxScrollExtent) {
+          _loadAfter();
+        }
+      });
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scrollController.dispose();
+  }
+
   @override
   bool get wantKeepAlive => true;
 
@@ -29,6 +47,14 @@ class _MatchListState extends State<MatchList> with AutomaticKeepAliveClientMixi
     return list.where((item) {
       return item['dateTime'] != ignoreTime;
     }).toList();
+  }
+
+  Widget _buildProgressIndicator() {
+    return Container(
+        padding: EdgeInsets.all(10.0),
+        child: Center(
+            child:
+                allLoaded ? Text('暂时没有更多内容了……') : CircularProgressIndicator()));
   }
 
   _fetchData(Map opt) async {
@@ -78,15 +104,27 @@ class _MatchListState extends State<MatchList> with AutomaticKeepAliveClientMixi
   }
 
   _loadAfter() async {
-    var newDate = new Moment(timestamp: lastTime).formatTime();
-    var preNewList = await _fetchData({'days': 1, 'date': newDate});
-    var newList = _preFormat(preNewList, lastTime);
-    final int loadNum = newList.length;
-    var joinList = new List.from(matchList)..addAll(newList);
-    setState(() {
-      matchList = joinList;
-      _updateQueryTime();
-    });
+    bool loadedFlag;
+    if (!this.loading || !this.allLoaded) {
+      setState(() {
+        loading = true;
+      });
+      var newDate = new Moment(timestamp: lastTime).formatTime();
+      var preNewList = await _fetchData({'days': 1, 'date': newDate});
+      var newList = _preFormat(preNewList, lastTime);
+      if (newList.length == 0) {
+        loadedFlag = true;
+      } else {
+        loadedFlag = false;
+      }
+      var joinList = new List.from(matchList)..addAll(newList);
+      setState(() {
+        matchList = joinList;
+        allLoaded = loadedFlag;
+        loading = false;
+        _updateQueryTime();
+      });
+    }
   }
 
   List _getMatchShowData() {
@@ -102,14 +140,19 @@ class _MatchListState extends State<MatchList> with AutomaticKeepAliveClientMixi
       return BaseLoading();
     } else {
       return JScroll(
-          pull: _loadForward,
-          child: ListView.builder(
-              itemCount: formatList.length,
-              itemBuilder: (context, index) {
-                return MatchItem(match: formatList[index], league: widget.league);
-              }
-            )
-          );
+        pull: _loadForward,
+        child: ListView.builder(
+          itemCount: formatList == null ? 0 : formatList.length + 1,
+          itemBuilder: (context, index) {
+            if (index == formatList.length) {
+              return _buildProgressIndicator();
+            } else {
+              return MatchItem(match: formatList[index], league: widget.league);
+            }
+          },
+          controller: _scrollController,
+        ),
+      );
     }
   }
 }

@@ -3,14 +3,17 @@ import 'package:sports_mini/common/base.dart';
 class FeedItem extends StatelessWidget {
   FeedItem({@required this.feed});
   final Map feed;
-  
+
   //
-  _openArticlePage(BuildContext context,  Map feed) {
-    Navigator.of(context).push(new PageRouteBuilder(pageBuilder:
-        (BuildContext context, Animation<double> animation,
-            Animation<double> secondaryAnimation) {
-      return new ArticlePage(authorId: feed['authorId'], newsId: feed['id'], title: feed['authorName'],);
-    }));
+  _openArticlePage(BuildContext context, Map feed) {
+    Navigator.push(
+      context,
+      new MaterialPageRoute(
+          builder: (context) => new ArticlePage(
+              authorId: feed['authorId'],
+              newsId: feed['id'],
+              title: feed['authorName'])),
+    );
   }
 
   @override
@@ -163,10 +166,9 @@ class FeedItem extends StatelessWidget {
       );
     }
     return InkWell(
-      onTap: () {
-        this._openArticlePage(context, this.feed);
-      }, 
-      child: resComp
-    );
+        onTap: () {
+          this._openArticlePage(context, this.feed);
+        },
+        child: resComp);
   }
 }

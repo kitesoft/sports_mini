@@ -2,7 +2,6 @@ import 'package:sports_mini/common/base.dart';
 //
 import './match/page.dart';
 
-
 class MatchItem extends StatelessWidget {
   MatchItem({@required this.match, this.league});
   final Map match;
@@ -11,12 +10,12 @@ class MatchItem extends StatelessWidget {
   Widget _buildItemWidget(BuildContext context, Map item) {
     return InkWell(
         onTap: () {
-          Navigator.of(context).push(new PageRouteBuilder(pageBuilder:
-              (BuildContext context, Animation<double> animation,
-                  Animation<double> secondaryAnimation) {
-            return new MatchPage(
-                league: league, gameCode: item['gameCode']);
-          }));
+          Navigator.push(
+            context,
+            new MaterialPageRoute(
+                builder: (context) =>
+                    new MatchPage(league: league, gameCode: item['gameCode'])),
+          );
         },
         child: Container(
             padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
@@ -56,8 +55,7 @@ class MatchItem extends StatelessWidget {
                             borderRadius: BorderRadius.circular(6.0),
                             color: Colors.blue),
                         child: Center(
-                            child: Text(
-                                item['statusShow'],
+                            child: Text(item['statusShow'],
                                 style: TextStyle(
                                     fontSize: 10.0, color: Colors.white),
                                 textAlign: TextAlign.center)))

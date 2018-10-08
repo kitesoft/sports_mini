@@ -36,6 +36,7 @@ class _HomePageState extends State<HomePage>
       appBar: AppBar(
         title: Text(widget.title),
         bottom: TabBar(
+          isScrollable: false,
           tabs: [
             Tab(
               child: Text('要闻'),

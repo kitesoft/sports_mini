@@ -94,14 +94,13 @@ class _SideBar extends State<SideBar> {
     } else {
       return;
     }
-    Navigator.of(context).push(new PageRouteBuilder(pageBuilder:
-        (BuildContext context, Animation<double> animation,
-            Animation<double> secondaryAnimation) {
-      return new HomePage(
+    Navigator.push(
+      context,
+      new MaterialPageRoute(builder: (context) => new HomePage(
         title: _league.name,
         league: _league,
-      );
-    }));
+      )),
+    );
   }
 
   Widget _genTabBar(context, item) {

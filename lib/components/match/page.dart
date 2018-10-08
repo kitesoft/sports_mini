@@ -86,6 +86,15 @@ class _MatchPageState extends State<MatchPage>
     return gradient;
   }
 
+  _openTeamPage(BuildContext context, int teamId) {
+    Navigator.push(
+      context,
+      new MaterialPageRoute(
+          builder: (context) => new TeamPage(
+              league: widget.league, teamId: teamId)),
+    );
+  }
+
   Widget _buildHeader(BuildContext context) {
     return Container(
         height: 150.0,
@@ -100,12 +109,7 @@ class _MatchPageState extends State<MatchPage>
                 flex: 3,
                 child: InkWell(
                   onTap: () {
-                    Navigator.of(context).push(new PageRouteBuilder(pageBuilder:
-                        (BuildContext context, Animation<double> animation,
-                            Animation<double> secondaryAnimation) {
-                      return new TeamPage(
-                          league: widget.league, teamId: matchData['hTeamId']);
-                    }));
+                    _openTeamPage(context, matchData['hTeamId']);
                   },
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -158,12 +162,7 @@ class _MatchPageState extends State<MatchPage>
                 flex: 3,
                 child: InkWell(
                   onTap: () {
-                    Navigator.of(context).push(new PageRouteBuilder(pageBuilder:
-                        (BuildContext context, Animation<double> animation,
-                            Animation<double> secondaryAnimation) {
-                      return new TeamPage(
-                          league: widget.league, teamId: matchData['vTeamId']);
-                    }));
+                    _openTeamPage(context, matchData['vTeamId']);
                   },
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
