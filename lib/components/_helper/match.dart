@@ -95,6 +95,7 @@ class MatchUtil {
         match['title'] = '${league.name}${GAME_TYPE[match["gameType"]]}';
       }
       String gameStatus = match['status'].toString();
+      match['gameTimeShow'] = new Moment().formatTime(format: 'hh:mm');
       if (gameStatus == '1' || gameStatus == '-1') {
         match['progressShow'] = match['gameTimeShow'];
       } else if (gameStatus == '0') {

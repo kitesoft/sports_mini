@@ -76,56 +76,18 @@ class _TeamPageState extends State<TeamPage>
     );
   }
 
-  Widget _buildPageBody(BuildContext context) {
-    return Column(children: [
-      Container(
-        height: 150.0,
-        decoration: new BoxDecoration(
-            image: new DecorationImage(
-                image: new AssetImage('images/stadium_bg.png'),
-                fit: BoxFit.cover)),
-        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Container(
-            width: 60.0,
-            height: 60.0,
-            margin: EdgeInsets.only(right: 20.0),
-            child: Image.network(teamData['teamInfo']['flag']),
-          ),
-          Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  child: Text(
-                    teamData['teamInfo']['teamName'],
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                Container(
-                    child: Text(
-                  '战绩：${teamData["wins"]}胜 ${teamData["ties"]}平 ${teamData["losses"]}负',
-                  style: TextStyle(color: Colors.white),
-                )),
-                Container(
-                    child: Text(
-                  '排名：英超第${teamData["place"]}名',
-                  style: TextStyle(color: Colors.white),
-                ))
-              ])
-        ]),
-      ),
-      Container(height: 300.0, child: Center(child: Text('球队页 TAB - TBD')))
-    ]);
-  }
-
   @override
   Widget build(BuildContext context) {
     String teamName = teamData != null ? teamData['teamInfo']['teamName'] : '';
     final streamId = widget.league.feed["team"];
     final String feedApi =
         'https://v2.sohu.com/integration-api/mix/region/$streamId';
-    return Scaffold(
-      body: CustomScrollView(
+    Widget pageBody;
+    if (teamData == null) {
+      pageBody =
+          Center(child: BaseLoading());
+    } else {
+      pageBody = CustomScrollView(
         slivers: <Widget>[
           SliverToBoxAdapter(child: _buildHeader()),
           SliverToBoxAdapter(
@@ -151,7 +113,8 @@ class _TeamPageState extends State<TeamPage>
             controller: _tabController,
           ))
         ],
-      ),
-    );
+      );
+    }
+    return Scaffold(appBar: AppBar(), body: pageBody);
   }
 }

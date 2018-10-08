@@ -86,7 +86,7 @@ class _MatchPageState extends State<MatchPage>
     return gradient;
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(BuildContext context) {
     return Container(
         height: 150.0,
         decoration: new BoxDecoration(
@@ -190,16 +190,15 @@ class _MatchPageState extends State<MatchPage>
     final streamId = widget.league.feed["match"];
     final String feedApi =
         'https://v2.sohu.com/integration-api/mix/region/$streamId';
+    Widget pageBody;
+    String showTitle = '';
     if (matchData == null) {
-      return BaseLoading();
-    }
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(matchData['showTitle']),
-      ),
-      body: CustomScrollView(
+      pageBody = Center(child: BaseLoading());
+    } else {
+      showTitle = matchData['showTitle'];
+      pageBody = CustomScrollView(
         slivers: <Widget>[
-          SliverToBoxAdapter(child: _buildHeader()),
+          SliverToBoxAdapter(child: _buildHeader(context)),
           SliverToBoxAdapter(
               child: TabBar(
                   unselectedLabelColor: Colors.black,
@@ -223,7 +222,12 @@ class _MatchPageState extends State<MatchPage>
             controller: _tabController,
           ))
         ],
-      ),
-    );
+      );
+    }
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(showTitle),
+        ),
+        body: pageBody);
   }
 }
