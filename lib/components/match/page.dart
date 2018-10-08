@@ -37,7 +37,7 @@ class _MatchPageState extends State<MatchPage>
   void initState() {
     _getMatchData();
     super.initState();
-    _tabController = TabController(length: 2, vsync: this)
+    _tabController = TabController(length: 4, vsync: this)
       ..addListener(() {
         setState(() {});
       });
@@ -205,10 +205,16 @@ class _MatchPageState extends State<MatchPage>
                   indicatorColor: Colors.orange,
                   tabs: [
                     Tab(
-                      child: Container(child: Text('要闻')),
+                      child: Container(child: Text('赛况')),
                     ),
                     Tab(
-                      child: Container(child: Text('赛程')),
+                      child: Container(child: Text('数据')),
+                    ),
+                    Tab(
+                      child: Container(child: Text('直播')),
+                    ),
+                    Tab(
+                      child: Container(child: Text('聊球')),
                     ),
                   ],
                   controller: _tabController)),
@@ -216,7 +222,15 @@ class _MatchPageState extends State<MatchPage>
               child: TabBarView(
             children: <Widget>[
               FeedList(api: feedApi, params: {'mpId': matchData['target']}),
-              MatchList(league: widget.league)
+              Center(
+                child: Text('数据页 TBD')
+              ),
+              Center(
+                child: Text('直播页 TBD')
+              ),
+              Center(
+                child: Text('聊球页 TBD')
+              ),
             ],
             controller: _tabController,
           ))
